@@ -14,7 +14,7 @@
             <h1>Minha Conta</h1>
             <div>Produtos Cadastrados</div>
             <div class="products-container">
-                <a th:href="@{'/products/' + ${product.id}}" class="product"
+                <a th:href="@{|/products/${product.id}}" class="product"
                    th:each="product : ${user.getProducts()}">
                     <div th:text="${product.name}"></div>
                     <div th:text="${product.category.name}"></div>

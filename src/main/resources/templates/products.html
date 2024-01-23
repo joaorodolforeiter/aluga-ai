@@ -18,16 +18,21 @@
             <a
                     th:each="category : ${categories}"
                     th:text="${category.name}"
-                    th:href="'/products?q=' + ${category.name}">
+                    th:href="@{|/products?q=${category.name}|}">
             </a>
         </div>
         <div class="product-container">
-            <a th:if="${!#lists.isEmpty(products)}" th:href="'/products/' + ${product.id}" class="product-card"
-               th:each="product : ${products}">
-                <img th:src="'/files/' + ${product.photoPath}" alt="">
+            <a class="product-card"
+               th:if="${!#lists.isEmpty(products)}"
+               th:href="@{|/products/${product.id}|}"
+               th:each="product : ${products}"
+            >
+                <img th:src="@{|/files/${product.photoPath}|}" alt="">
                 <div th:text="${product.name}"></div>
             </a>
-            <div th:if="${#lists.isEmpty(products)}">Sem itens cadastrados</div>
+            <div th:if="${#lists.isEmpty(products)}">
+                Sem itens cadastrados
+            </div>
         </div>
     </main>
 </body>

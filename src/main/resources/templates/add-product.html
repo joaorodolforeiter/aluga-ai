@@ -20,9 +20,10 @@
                     Categoria:
                     <select required th:field="*{category}">
                         <option value="" hidden selected>Selecione a categoria</option>
-                        <option th:each="category : ${categories}"
+                        <option
+                                th:each="category : ${categories}"
                                 th:value="${category.id}"
-                                th:text="${category.name}">RED
+                                th:text="${category.name}">
                         </option>
                     </select>
                 </label>
