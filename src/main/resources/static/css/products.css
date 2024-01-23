@@ -37,6 +37,8 @@ main {
     border-radius: 12px;
     height: 200px;
 
+    text-decoration: none;
+
     width: 100%;
     max-width: 240px;
 
@@ -51,5 +53,7 @@ main {
         display: flex;
         justify-content: center;
         align-items: center;
+        color: black;
     }
+
 }

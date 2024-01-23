@@ -6,10 +6,12 @@ import com.alugai.alugaai.domain.User;
 import com.alugai.alugaai.repository.ProductCategoryRepository;
 import com.alugai.alugaai.repository.ProductRepository;
 import com.alugai.alugaai.security.SecurityService;
+import com.alugai.alugaai.storage.StorageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;
 
@@ -21,6 +23,7 @@ public class ProductController {
     private final ProductRepository productRepository;
     private final ProductCategoryRepository categoryRepository;
     private final SecurityService securityService;
+    private final StorageService storageService;
 
     @GetMapping("/products")
     public String getProductsPage(@RequestParam("q") Optional<String> optionalCategoryName, Model model) {
@@ -65,13 +68,21 @@ public class ProductController {
     }
 
     @PostMapping("/add/product")
-    public String addProduct(@ModelAttribute("product") Product product) {
+    public String addProduct(
+            @ModelAttribute("product") Product product,
+            @RequestPart("product-photo") MultipartFile productImage
+    ) {
+
 
         Optional<User> optionalLoggedUser = securityService.getSessionUser();
 
         if (optionalLoggedUser.isPresent()) {
 
             product.setOwner(optionalLoggedUser.get());
+
+            storageService.store(productImage);
+            product.setPhotoPath(productImage.getOriginalFilename());
+
             productRepository.save(product);
 
         }

@@ -10,7 +10,7 @@
 <body>
     <header th:replace="~{fragments/header :: header}"></header>
     <main>
-        <form class="add-product-form" method="post" th:object="${product}">
+        <form enctype="multipart/form-data" class="add-product-form" method="post" th:object="${product}">
             <div>
                 <label>
                     Nome:
@@ -30,6 +30,10 @@
             <label>
                 Descrição:
                 <textarea th:field="*{description}" required rows="15"></textarea>
+            </label>
+            <label>
+                Imagem:
+                <input name="product-photo" type="file" required accept="image/*">
             </label>
             <button>Enviar</button>
         </form>

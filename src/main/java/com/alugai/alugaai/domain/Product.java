@@ -19,6 +19,8 @@ public class Product {
 
     private String description;
 
+    private String photoPath;
+
     @ManyToOne(fetch = FetchType.EAGER)
     private User owner;
 

@@ -21,7 +21,7 @@
         <div class="product-container">
             <a th:if="${!#lists.isEmpty(products)}" th:href="'/products/' + ${product.id}" class="product-card"
                th:each="product : ${products}">
-                <img src="https://avatars.githubusercontent.com/u/107353283?v=4" alt="">
+                <img th:src="'/files/' + ${product.photoPath}" alt="">
                 <div th:text="${product.name}"></div>
             </a>
             <div th:if="${#lists.isEmpty(products)}">Sem itens cadastrados</div>
