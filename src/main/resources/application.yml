@@ -7,3 +7,9 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+storage:
+  location: /home/joao/Documents/aluga_ai
