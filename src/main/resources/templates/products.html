@@ -19,14 +19,12 @@
             </a>
         </div>
         <div class="product-container">
-            <a th:if="${!#lists.isEmpty(products)}" th:href="'/products/' + ${product.id}" class="product-card" th:each="product : ${products}">
+            <a th:if="${!#lists.isEmpty(products)}" th:href="'/products/' + ${product.id}" class="product-card"
+               th:each="product : ${products}">
                 <img src="https://avatars.githubusercontent.com/u/107353283?v=4" alt="">
                 <div th:text="${product.name}"></div>
             </a>
-            <a class="product-card" th:if="${#lists.isEmpty(products)}">
-                <img src="https://avatars.githubusercontent.com/u/107353283?v=4" alt="">
-                <div>Sem itens cadastrados</div>
-            </a>
+            <div th:if="${#lists.isEmpty(products)}">Sem itens cadastrados</div>
         </div>
     </main>
 </body>
