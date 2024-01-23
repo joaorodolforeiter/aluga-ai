@@ -23,6 +23,14 @@ main {
     gap: 20px;
 }
 
+.error {
+    text-align: center;
+    padding: 12px;
+    background-color: tomato;
+    border-radius: 8px;
+    color: white;
+}
+
 form {
     display: flex;
     flex-direction: column;

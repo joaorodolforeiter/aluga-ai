@@ -11,6 +11,7 @@
 <body>
     <main>
         <form method="post" action="/login">
+            <div class="error" th:if="${param.error}">Usuário/Senha inválido</div>
             <h2>Aluga Ai</h2>
             <label>
                 Nome de Usuário
