@@ -25,7 +25,7 @@ public class ProductController {
     private final SecurityService securityService;
     private final StorageService storageService;
 
-    @GetMapping("/products")
+    @GetMapping({"/products", ""})
     public String getProductsPage(@RequestParam("q") Optional<String> optionalCategoryName, Model model) {
 
         model.addAttribute("categories", categoryRepository.findAll());

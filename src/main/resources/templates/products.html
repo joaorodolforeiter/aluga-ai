@@ -12,6 +12,9 @@
     <header th:replace="~{fragments/header :: header}"></header>
     <main>
         <div class="categories-container">
+            <a href="/products">
+                Todos
+            </a>
             <a
                     th:each="category : ${categories}"
                     th:text="${category.name}"

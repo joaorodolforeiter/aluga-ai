@@ -8,6 +8,11 @@
     width: 100%;
     height: 64px;
 
+    a {
+        color: black;
+        text-decoration: none;
+    }
+
     .header-center {
         display: flex;
         justify-content: space-between;
@@ -45,6 +50,11 @@
             background-color: lightslategrey;
         }
 
+        & a {
+            text-decoration: none;
+            color: white;
+        }
+
     }
 
     & img {
@@ -52,9 +62,6 @@
         border-radius: 24px;
     }
 
-    & a {
-        text-decoration: none;
-        color: white;
-    }
+
 
 }
