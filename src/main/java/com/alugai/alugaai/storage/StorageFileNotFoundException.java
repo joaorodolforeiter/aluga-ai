@@ -1,7 +1,5 @@
 package com.alugai.alugaai.storage;
 
-import com.alugai.alugaai.storage.StorageException;
-
 public class StorageFileNotFoundException extends StorageException {
 
     public StorageFileNotFoundException(String message) {
