@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Minha Conta</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/fragments.css">
+    <link rel="stylesheet" href="/css/account.css">
+</head>
+<body>
+    <header th:replace="~{/fragments/header :: header}"></header>
+    <main>
+        <div>
+            <h1>Minha Conta</h1>
+            <div>Produtos Cadastrados</div>
+            <div class="products-container">
+                <a th:href="@{'/products/' + ${product.id}}" class="product"
+                   th:each="product : ${user.getProducts()}">
+                    <div th:text="${product.name}"></div>
+                    <div th:text="${product.category.name}"></div>
+                </a>
+            </div>
+        </div>
+        <div>
+            <div th:text="${user.email}"></div>
+            <div th:text="${user.name}"></div>
+            <div th:text="${user.surname}"></div>
+            <div th:text="${user.username}"></div>
+        </div>
+    </main>
+</body>
+</html>

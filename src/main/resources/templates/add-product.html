@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/fragments.css">
+    <link rel="stylesheet" href="/css/add-product.css">
+</head>
+<body>
+    <header th:replace="~{fragments/header :: header}"></header>
+    <main>
+        <form class="add-product-form" method="post" th:object="${product}">
+            <div>
+                <label>
+                    Nome:
+                    <input th:field="*{name}" type="text" required>
+                </label>
+                <label>
+                    Categoria:
+                    <select required th:field="*{category}">
+                        <option value="" hidden selected>Selecione a categoria</option>
+                        <option th:each="category : ${categories}"
+                                th:value="${category.id}"
+                                th:text="${category.name}">RED
+                        </option>
+                    </select>
+                </label>
+            </div>
+            <label>
+                Descrição:
+                <textarea th:field="*{description}" required rows="15"></textarea>
+            </label>
+            <button>Enviar</button>
+        </form>
+    </main>
+</body>
+</html>

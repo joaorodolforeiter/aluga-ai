@@ -1,0 +1,29 @@
+main {
+    gap: 32px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+
+    & div {
+        flex: 1;
+    }
+}
+
+.products-container {
+    overflow: hidden;
+    border-radius: 12px;
+    padding: 12px;
+    max-width: 320px;
+    background-color: lightgray;
+}
+
+.product {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+    border-bottom: 1px solid darkgrey;
+}
+
+.product:last-child {
+    border-bottom: none;
+}

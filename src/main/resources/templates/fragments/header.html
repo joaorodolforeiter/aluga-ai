@@ -1,0 +1,26 @@
+<header class="header" th:fragment="header" xmlns:sec="http://www.w3.org/1999/xhtml">
+    <div class="header-center">
+        <div class="logo">
+            <div>AlugaAi</div>
+        </div>
+        <nav>
+            <div>
+                <a href="/products">Items</a>
+            </div>
+            <div>
+                <a href="/add/product">Adicionar produto</a>
+            </div>
+            <a
+                    class="avatar-image"
+                    href="/account"
+                    sec:authorize="isAuthenticated()"
+                    th:text="${#authentication.name.toUpperCase().charAt(0)}">
+            </a>
+            <div sec:authorize="!isAuthenticated()">
+                <a href="/login">
+                    Login
+                </a>
+            </div>
+        </nav>
+    </div>
+</header>

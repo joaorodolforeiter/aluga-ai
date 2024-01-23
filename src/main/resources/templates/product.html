@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/fragments.css">
+</head>
+<body>
+    <header th:replace="~{fragments/header :: header}"></header>
+    <main>
+        <div th:text="${product.name}"></div>
+        <div th:text="${product.description}"></div>
+        <div th:text="${product.category.name}"></div>
+    </main>
+</body>
+</html>

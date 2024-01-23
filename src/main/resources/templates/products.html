@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/fragments.css">
+    <link rel="stylesheet" href="/css/products.css">
+</head>
+<body>
+    <header th:replace="~{fragments/header :: header}"></header>
+    <main>
+        <div class="categories-container">
+            <a
+                    th:each="category : ${categories}"
+                    th:text="${category.name}"
+                    th:href="'/products?q=' + ${category.name}">
+            </a>
+        </div>
+        <div class="product-container">
+            <a th:if="${!#lists.isEmpty(products)}" th:href="'/products/' + ${product.id}" class="product-card" th:each="product : ${products}">
+                <img src="https://avatars.githubusercontent.com/u/107353283?v=4" alt="">
+                <div th:text="${product.name}"></div>
+            </a>
+            <a class="product-card" th:if="${#lists.isEmpty(products)}">
+                <img src="https://avatars.githubusercontent.com/u/107353283?v=4" alt="">
+                <div>Sem itens cadastrados</div>
+            </a>
+        </div>
+    </main>
+</body>
+</html>

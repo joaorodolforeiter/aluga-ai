@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+    <main>
+        <div th:if="${param.fail}">
+            Usuário já existe
+        </div>
+        <form method="post" action="/register/save" th:object="${user}">
+            <h2>Registro</h2>
+            <label>
+                Nome de usuário
+                <input th:field="*{username}" type="text" required>
+            </label>
+            <label>
+                Nome
+                <input th:field="*{name}" type="text" required>
+            </label>
+            <label>
+                Sobrenome
+                <input th:field="*{surname}" type="text" required>
+            </label>
+            <label>
+                E-mail
+                <input th:field="*{email}" type="email" required>
+            </label>
+            <label>
+                Senha:
+                <input th:field="*{password}" type="password" required>
+            </label>
+            <button>Criar Conta</button>
+        </form>
+        <span>Já tem uma conta? Entre <a href="/login">aqui</a></span>
+    </main>
+</body>
+</html>
