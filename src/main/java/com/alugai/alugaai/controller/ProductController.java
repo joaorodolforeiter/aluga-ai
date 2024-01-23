@@ -6,7 +6,6 @@ import com.alugai.alugaai.domain.User;
 import com.alugai.alugaai.repository.ProductCategoryRepository;
 import com.alugai.alugaai.repository.ProductRepository;
 import com.alugai.alugaai.security.SecurityService;
-import com.alugai.alugaai.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,25 +18,26 @@ import java.util.Optional;
 @RequestMapping("/")
 public class ProductController {
 
-    private final UserService userService;
     private final ProductRepository productRepository;
     private final ProductCategoryRepository categoryRepository;
     private final SecurityService securityService;
 
     @GetMapping("/products")
-    public String getProductsPage(@RequestParam("q") Optional<String> optionalCategory, Model model) {
+    public String getProductsPage(@RequestParam("q") Optional<String> optionalCategoryName, Model model) {
 
         model.addAttribute("categories", categoryRepository.findAll());
 
-        if (optionalCategory.isPresent()) {
-            ProductCategory category = categoryRepository.findByName(optionalCategory.get()).get();
+        if (optionalCategoryName.isEmpty()) {
+            model.addAttribute("products", productRepository.findAll());
+            return "products";
+        }
+
+        var optionalRepoCategory = categoryRepository.findByName(optionalCategoryName.get());
+
+        if (optionalRepoCategory.isPresent()) {
+            ProductCategory category = optionalRepoCategory.get();
             model.addAttribute("products", category.getProducts());
         }
-
-        if (optionalCategory.isEmpty()) {
-            model.addAttribute("products", productRepository.findAll());
-        }
-
 
         return "products";
 
@@ -45,8 +45,16 @@ public class ProductController {
 
     @GetMapping("/products/{id}")
     public String getProductPage(Model model, @PathVariable("id") Long id) {
-        model.addAttribute("product", productRepository.findById(id).get());
+
+        Optional<Product> optionalProduct = productRepository.findById(id);
+
+        if (optionalProduct.isEmpty()) {
+            return "redirect:/products";
+        }
+
+        model.addAttribute("product", optionalProduct.get());
         return "product";
+
     }
 
     @GetMapping("/add/product")
@@ -63,10 +71,7 @@ public class ProductController {
 
         if (optionalLoggedUser.isPresent()) {
 
-            product.setOwner(
-                    optionalLoggedUser.get()
-            );
-
+            product.setOwner(optionalLoggedUser.get());
             productRepository.save(product);
 
         }
