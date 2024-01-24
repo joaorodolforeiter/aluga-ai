@@ -22,6 +22,16 @@
             </div>
         </div>
         <div>
+            <div class="profile-photo">
+                Nova imagem de perfil
+                <form enctype="multipart/form-data" action="/add/update-photo" method="post">
+                    <label>
+                        Imagem:
+                        <input name="photo" type="file" required>
+                        <button>Enviar</button>
+                    </label>
+                </form>
+            </div>
             <div th:text="${user.email}"></div>
             <div th:text="${user.name}"></div>
             <div th:text="${user.surname}"></div>

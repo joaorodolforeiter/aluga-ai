@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Data
 @Entity
@@ -29,6 +30,8 @@ public class User implements UserDetails {
     private String name;
     private String surname;
     private String password;
+
+    private String photoPath;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;

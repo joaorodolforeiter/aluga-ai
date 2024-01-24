@@ -13,8 +13,8 @@
             <a
                     class="avatar-image"
                     href="/account"
-                    sec:authorize="isAuthenticated()"
-                    th:text="${#authentication.name.toUpperCase().charAt(0)}">
+                    sec:authorize="isAuthenticated()">
+                <img th:src="|/${#authentication.name}.png|" alt="">
             </a>
             <div sec:authorize="!isAuthenticated()">
                 <a href="/login">
