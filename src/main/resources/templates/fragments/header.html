@@ -7,14 +7,14 @@
             <div>
                 <a href="/products">Items</a>
             </div>
-            <div>
+            <div sec:authorize="isAuthenticated()">
                 <a href="/add/product">Adicionar produto</a>
             </div>
             <a
                     class="avatar-image"
                     href="/account"
                     sec:authorize="isAuthenticated()">
-                <img th:src="|/${#authentication.name}.png|" alt="">
+                <img th:src="|/public/${#authentication.name}.png|" alt="">
             </a>
             <div sec:authorize="!isAuthenticated()">
                 <a href="/login">

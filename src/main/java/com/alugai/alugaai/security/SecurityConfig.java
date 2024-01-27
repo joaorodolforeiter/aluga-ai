@@ -30,13 +30,16 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(requests -> requests
                 .requestMatchers(
+                        "/",
                         "/products",
+                        "/products/**",
                         "/login",
                         "/register",
                         "/register/**",
                         "/css/**",
                         "/assets/**",
-                        "/files/**"
+                        "/files/**",
+                        "/public/**"
                 )
                 .permitAll()
                 .anyRequest()

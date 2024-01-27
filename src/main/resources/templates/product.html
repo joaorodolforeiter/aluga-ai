@@ -5,13 +5,26 @@
     <title>Title</title>
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/fragments.css">
+    <link rel="stylesheet" href="/css/product.css">
 </head>
 <body>
     <header th:replace="~{fragments/header :: header}"></header>
     <main>
-        <div th:text="${product.name}"></div>
-        <div th:text="${product.description}"></div>
-        <div th:text="${product.category.name}"></div>
+        <img th:src="@{|/files/${product.photoPath}|}" alt="">
+        <div class="content">
+            <div>
+                <h2 th:text="${product.name}"></h2> -
+                <div th:text="${product.category.name}"></div>
+            </div>
+            <div>
+                <img th:src="|/public/${product.owner.username}.png|" alt="">
+                <div th:text="|${product.owner.name} ${product.owner.surname}|"></div>
+            </div>
+            <p th:text="${product.description}"></p>
+            <form action="">
+                <button>Alugar</button>
+            </form>
+        </div>
     </main>
 </body>
 </html>

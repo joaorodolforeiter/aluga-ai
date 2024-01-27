@@ -43,7 +43,7 @@ public class UserController {
 
     }
 
-    @GetMapping("/{username}.png")
+    @GetMapping("/public/{username}.png")
     public ResponseEntity<?> getUserProfileImage(Model model, @PathVariable String username) {
 
         var optionalUser =userService.findByUsername(username);
