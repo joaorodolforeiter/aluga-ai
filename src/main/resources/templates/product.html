@@ -3,27 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="/css/fragments.css">
-    <link rel="stylesheet" href="/css/product.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
     <header th:replace="~{fragments/header :: header}"></header>
-    <main>
-        <img th:src="@{|/files/${product.photoPath}|}" alt="">
-        <div class="content">
-            <div>
-                <h2 th:text="${product.name}"></h2> -
-                <div th:text="${product.category.name}"></div>
+    <main class="bg-white flex flex-col items-center pt-20 min-h-screen">
+        <div class="flex max-md:flex-col max-w-6xl gap-6 p-6 w-full h-full">
+            <div class="flex-1 flex justify-center">
+                <img class="max-w-96 max-sm:aspect-video w-full aspect-square object-cover rounded-lg"
+                     th:src="@{|/files/${product.photoPath}|}"
+                     alt="">
             </div>
-            <div>
-                <img th:src="|/public/${product.owner.username}.png|" alt="">
-                <div th:text="|${product.owner.name} ${product.owner.surname}|"></div>
+            <div class="flex flex-col gap-4 flex-1">
+                <div class="flex items-center gap-3">
+                    <h2 class="text-3xl font-semibold" th:text="${product.name}"></h2> -
+                    <div th:text="${product.category.name}"></div>
+                </div>
+                <div class="flex gap-3 items-center">
+                    <img class="w-10 h-10 object-cover rounded-full"
+                         th:src="|/public/${product.owner.username}.png|" alt="">
+                    <div th:text="|${product.owner.name} ${product.owner.surname}|"></div>
+                </div>
+                <p class="max-w-xl" th:text="${product.description}"></p>
+                <form action="">
+                    <button class="bg-slate-100 hover:bg-slate-200 max-sm:w-full border border-slate-200 p-2 rounded-lg transition-all">
+                        Alugar
+                    </button>
+                </form>
             </div>
-            <p th:text="${product.description}"></p>
-            <form action="">
-                <button>Alugar</button>
-            </form>
         </div>
     </main>
 </body>

@@ -1,26 +1,31 @@
-<header class="header" th:fragment="header" xmlns:sec="http://www.w3.org/1999/xhtml">
-    <div class="header-center">
-        <a href="/" class="logo">
-            <div>AlugaAi</div>
-        </a>
-        <nav>
-            <div>
-                <a href="/products">Items</a>
-            </div>
-            <div sec:authorize="isAuthenticated()">
-                <a href="/add/product">Adicionar produto</a>
-            </div>
-            <a
-                    class="avatar-image"
-                    href="/account"
-                    sec:authorize="isAuthenticated()">
-                <img th:src="|/public/${#authentication.name}.png|" alt="">
+<header th:fragment="header"
+        class="bg-white fixed w-full border border-slate-200 shadow-sm"
+        xmlns:sec="http://www.w3.org/1999/xhtml">
+    <nav class="mx-auto flex max-w-7xl items-center justify-between p-2 px-4 lg:px-6" aria-label="Global">
+        <div class="flex lg:flex-1">
+            <a href="/" class="-m-1.5 p-1.5">
+                <img class="h-12 w-auto" src="/assets/logo.png" alt="">
             </a>
-            <div sec:authorize="!isAuthenticated()">
-                <a href="/login">
-                    Login
+        </div>
+        <div class="flex items-center gap-6">
+            <div class="flex gap-x-6">
+                <a href="/products" class="text-sm font-semibold leading-6 text-gray-900">Produtos</a>
+                <a href="/add/product" class="text-sm font-semibold leading-6 text-gray-900">Novo Item</a>
+            </div>
+            <div sec:authorize="!isAuthenticated()" class="flex flex-1 justify-end">
+                <a href="/login" class="text-sm font-semibold leading-6 text-gray-900">
+                    Entrar
                 </a>
             </div>
-        </nav>
-    </div>
+            <div sec:authorize="isAuthenticated()" class="flex flex-1 justify-end">
+                <a
+                        href="/account"
+                        sec:authorize="isAuthenticated()">
+                    <img
+                            class="aspect-square w-10 h-10 object-cover rounded-full"
+                            th:src="|/public/${#authentication.name}.png|" alt="">
+                </a>
+            </div>
+        </div>
+    </nav>
 </header>

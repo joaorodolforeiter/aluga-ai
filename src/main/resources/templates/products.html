@@ -4,34 +4,35 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="/css/fragments.css">
-    <link rel="stylesheet" href="/css/products.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="overflow-y-scroll">
     <header th:replace="~{fragments/header :: header}"></header>
-    <main>
-        <div class="categories-container">
-            <a href="/products">
+    <main class="bg-white flex flex-col items-center pt-24">
+        <div class="max-sm:rounded-none flex justify-center gap-3 px-3 py-1 rounded-lg shadow-sm border border-slate-200 flex-wrap">
+            <a href="/products" class="px-3 py-1 rounded-md hover:bg-slate-100 block transition-all">
                 Todos
             </a>
             <a
+                    class="px-3 py-1 rounded-md hover:bg-slate-100 block transition-all"
                     th:each="category : ${categories}"
                     th:text="${category.name}"
                     th:href="@{|/products?q=${category.name}|}">
             </a>
         </div>
-        <div class="product-container">
-            <a class="product-card"
-               th:if="${!#lists.isEmpty(products)}"
-               th:href="@{|/products/${product.id}|}"
-               th:each="product : ${products}"
-            >
-                <img th:src="@{|/files/${product.photoPath}|}" alt="">
-                <div th:text="${product.name}"></div>
-            </a>
-            <div th:if="${#lists.isEmpty(products)}">
-                Sem itens cadastrados
+        <div class="mx-auto max-w-2xl px-4 py-8 sm:px-6 sm:py-16 lg:max-w-7xl lg:px-8">
+            <div class="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xl:gap-x-8">
+                <a class="group"
+                   th:if="${!#lists.isEmpty(products)}"
+                   th:href="@{|/products/${product.id}|}"
+                   th:each="product : ${products}">
+                    <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden transition-all group-hover:ring rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
+                        <img th:src="@{|/files/${product.photoPath}|}"
+                             class="h-full w-full object-cover object-center aspect-square" alt="">
+                    </div>
+                    <h3 class="mt-4 text-sm text-gray-700 truncate max-w-40" th:text="${product.name}"></h3>
+                    <p class="mt-1 text-lg font-medium text-gray-900">$48</p>
+                </a>
             </div>
         </div>
     </main>
