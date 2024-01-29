@@ -1,6 +1,7 @@
 package com.alugai.alugaai.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,7 @@ public class Product {
 
     private String name;
 
+    @Column(columnDefinition="TEXT")
     private String description;
 
     private String photoPath;
