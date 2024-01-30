@@ -27,7 +27,6 @@ public class UserServiceImpl implements UserService {
         User user = new User();
 
         user.setEmail(registrationDto.getEmail());
-        user.setUsername(registrationDto.getUsername());
         user.setName(registrationDto.getName());
         user.setSurname(registrationDto.getSurname());
 
@@ -45,11 +44,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
-    }
-
-    @Override
-    public Optional<User> findByUsername(String username) {
-        return userRepository.findByUsername(username);
     }
 
     public User updateUser(User user) {

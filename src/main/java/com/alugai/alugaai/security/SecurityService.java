@@ -24,7 +24,7 @@ public class SecurityService {
             return Optional.empty();
         }
 
-        return userService.findByUsername(authentication.getName());
+        return userService.findByEmail(authentication.getName());
 
     }
 

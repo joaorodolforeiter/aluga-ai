@@ -43,10 +43,10 @@ public class UserController {
 
     }
 
-    @GetMapping("/public/{username}.png")
-    public ResponseEntity<?> getUserProfileImage(Model model, @PathVariable String username) {
+    @GetMapping("/public/{email}.png")
+    public ResponseEntity<?> getUserProfileImage(Model model, @PathVariable String email) {
 
-        var optionalUser =userService.findByUsername(username);
+        var optionalUser = userService.findByEmail(email);
 
         if (optionalUser.isEmpty()) {
             return ResponseEntity.badRequest().body("User not found");
