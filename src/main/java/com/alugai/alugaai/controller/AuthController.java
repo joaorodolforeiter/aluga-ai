@@ -41,12 +41,6 @@ public class AuthController {
             return "redirect:/register?fail";
         }
 
-        Optional<User> existingUserUsername = userService.findByEmail(user.getEmail());
-
-        if (existingUserUsername.isPresent()) {
-            return "redirect:/register?fail";
-        }
-
         userService.saveUser(user);
 
         return "redirect:/login";
