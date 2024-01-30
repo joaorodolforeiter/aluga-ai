@@ -22,9 +22,6 @@ public class User implements UserDetails {
     private Long id;
 
     @Column(unique = true)
-    private String username;
-
-    @Column(unique = true)
     private String email;
 
     private String name;
@@ -42,6 +39,11 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
     }
 
     @Override

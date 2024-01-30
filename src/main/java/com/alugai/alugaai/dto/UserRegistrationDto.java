@@ -7,8 +7,6 @@ import lombok.Data;
 public class UserRegistrationDto {
 
     @NotEmpty
-    private String username;
-    @NotEmpty
     private String name;
     @NotEmpty
     private String surname;
