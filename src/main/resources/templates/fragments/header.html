@@ -1,55 +1,55 @@
 <header th:fragment="header"
-        class="bg-white fixed w-full border-b border-slate-300 shadow-sm"
-        xmlns:sec="http://www.w3.org/1999/xhtml">
+        xmlns:sec="http://www.w3.org/1999/xhtml"
+        class="bg-slate-100 fixed w-full border-b border-slate-300 shadow-sm" >
 
-    <nav class="mx-auto flex max-w-7xl items-center justify-between p-4 lg:p-2 px-4 lg:px-10" aria-label="Global">
-        <div class="flex lg:flex-1">
-            <a href="/" class="-m-1.5 p-1.5">
-                <img class="h-12 w-auto" src="/assets/logo.png" alt="">
-            </a>
-        </div>
+    <nav class="mx-auto flex max-w-7xl items-center justify-between p-4 lg:p-2 px-4 lg:px-10">
+
+        <a href="/" class="-m-1.5 p-1.5">
+            <img class="h-12 w-auto" src="/assets/logo.png" alt="">
+        </a>
+
         <div class="flex items-center gap-6">
 
-            <div class="flex gap-x-6 max-sm:hidden">
-                <a href="/products" class="text-sm font-semibold leading-6 text-gray-900">Produtos</a>
-                <a href="/add/product" class="text-sm font-semibold leading-6 text-gray-900">Novo Item</a>
+            <div class="gap-x-6 hidden sm:flex">
+                <a href="/products" class="text-sm font-semibold text-gray-900">Produtos</a>
+                <a href="/add/product" class="text-sm font-semibold text-gray-900">Novo Item</a>
             </div>
 
-            <div sec:authorize="!isAuthenticated()" class="flex flex-1 justify-end">
-                <a href="/login" class="text-sm font-semibold leading-6 text-gray-900">
-                    Entrar
-                </a>
-            </div>
+            <a sec:authorize="!isAuthenticated()"
+               href="/login"
+               class="text-sm font-semibold leading-6 text-gray-900">
+                Entrar
+            </a>
 
-            <div sec:authorize="isAuthenticated()" class="flex flex-1 justify-end">
-                <a
-                        href="/account"
-                        sec:authorize="isAuthenticated()">
-                    <img
-                            class="aspect-square w-10 h-10 object-cover rounded-full"
-                            th:src="|/public/${#authentication.name}.png|" alt="">
-                </a>
-            </div>
+            <a sec:authorize="isAuthenticated()"
+               class="border border-slate-300 rounded-full"
+               href="/account"
+            >
+                <img
+                        class="aspect-square w-10 h-10 object-cover rounded-full"
+                        th:src="|/public/${#authentication.name}.png|" alt="">
+            </a>
 
             <button id="navbar-toggle-button"
-                    class="items-center justify-center border border-slate-300 bg-slate-100 rounded-md p-2 text-gray-400 sm:hidden">
-                <img src="/assets/list-thin.svg" alt="">
+                    class="border border-slate-300 bg-slate-200 rounded-md p-2 text-gray-400 sm:hidden">
+                <img src="/assets/list-thin.svg" alt="list-thin">
             </button>
 
         </div>
+
     </nav>
 
     <div class="sm:hidden hidden shadow-xl" id="mobile-menu">
-        <div class="px-4 pb-3 pt-2 divide-y text-center divide-slate-200">
+        <div class="px-4 py-3 divide-y text-center divide-slate-300">
             <a href="/products"
-               class="text-gray-900 text-lg block px-3 py-4 text-base font-medium">Produtos</a>
+               class="text-gray-900 text-lg block px-3 py-4 font-medium">Produtos</a>
             <a href="/add/product"
-               class="text-gray-900 text-lg block px-3 py-4 text-base font-medium">Novo
+               class="text-gray-900 text-lg block px-3 py-4 font-medium">Novo
                 Item</a>
         </div>
     </div>
 
-    <script defer>
+    <script>
         const menu = document.getElementById("mobile-menu");
         const navbarToggleButton = document.getElementById("navbar-toggle-button");
 
