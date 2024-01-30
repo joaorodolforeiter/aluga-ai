@@ -1,22 +1,26 @@
 <header th:fragment="header"
         class="bg-white fixed w-full border-b border-slate-300 shadow-sm"
         xmlns:sec="http://www.w3.org/1999/xhtml">
-    <nav class="mx-auto flex max-w-7xl items-center justify-between p-2 px-4 lg:px-6" aria-label="Global">
+
+    <nav class="mx-auto flex max-w-7xl items-center justify-between p-4 lg:p-2 px-4 lg:px-10" aria-label="Global">
         <div class="flex lg:flex-1">
             <a href="/" class="-m-1.5 p-1.5">
                 <img class="h-12 w-auto" src="/assets/logo.png" alt="">
             </a>
         </div>
         <div class="flex items-center gap-6">
-            <div class="flex gap-x-6">
+
+            <div class="flex gap-x-6 max-sm:hidden">
                 <a href="/products" class="text-sm font-semibold leading-6 text-gray-900">Produtos</a>
                 <a href="/add/product" class="text-sm font-semibold leading-6 text-gray-900">Novo Item</a>
             </div>
+
             <div sec:authorize="!isAuthenticated()" class="flex flex-1 justify-end">
                 <a href="/login" class="text-sm font-semibold leading-6 text-gray-900">
                     Entrar
                 </a>
             </div>
+
             <div sec:authorize="isAuthenticated()" class="flex flex-1 justify-end">
                 <a
                         href="/account"
@@ -26,6 +30,32 @@
                             th:src="|/public/${#authentication.name}.png|" alt="">
                 </a>
             </div>
+
+            <button id="navbar-toggle-button"
+                    class="items-center justify-center border border-slate-300 bg-slate-100 rounded-md p-2 text-gray-400 sm:hidden">
+                <img src="/assets/list-thin.svg" alt="">
+            </button>
+
         </div>
     </nav>
+
+    <div class="sm:hidden hidden shadow-xl" id="mobile-menu">
+        <div class="px-4 pb-3 pt-2 divide-y text-center divide-slate-200">
+            <a href="/products"
+               class="text-gray-900 text-lg block px-3 py-4 text-base font-medium">Produtos</a>
+            <a href="/add/product"
+               class="text-gray-900 text-lg block px-3 py-4 text-base font-medium">Novo
+                Item</a>
+        </div>
+    </div>
+
+    <script defer>
+        const menu = document.getElementById("mobile-menu");
+        const navbarToggleButton = document.getElementById("navbar-toggle-button");
+
+        navbarToggleButton.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+    </script>
+
 </header>
