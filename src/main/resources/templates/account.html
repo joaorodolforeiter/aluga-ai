@@ -8,8 +8,8 @@
 </head>
 <body>
     <header th:replace="~{/fragments/header :: header}"></header>
-    <main class="flex flex-col items-center pt-24">
-        <div class="flex max-md:flex-col p-4 gap-6 w-full max-w-7xl">
+    <main class="flex flex-col items-center pt-24 p-4">
+        <div class="flex max-lg:flex-col gap-6 w-full max-w-7xl">
             <div class="flex-1">
                 <h1 class="text-3xl">Minha Conta</h1>
                 <div class="text-xl mt-4">Dados Pessoais</div>
@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div class="flex flex-col items-center flex-1">
-                <div class="border border-slate-300 bg-slate-50 shadow-sm rounded-lg flex flex-col items-center p-6 gap-4">
+                <div class="border w-full max-w-md border-slate-300 bg-slate-50 shadow-sm rounded-lg flex flex-col items-center p-6 gap-4">
                     <img
                             class="aspect-square h-48 aspect-square object-cover rounded-full border border-slate-300"
                             th:src="|/public/${#authentication.name}.png|" alt="">
@@ -49,7 +49,7 @@
                           method="post">
                         <label>
                             Imagem:
-                            <input name="photo" type="file" required>
+                            <input class="w-full" name="photo" type="file" required>
                         </label>
                         <button class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                             Atualizar foto
