@@ -8,7 +8,7 @@
 </head>
 <body>
     <header th:replace="~{/fragments/header :: header}"></header>
-    <main class="flex flex-col items-center pt-24 p-4">
+    <main class="flex flex-col items-center pt-32 p-4">
         <div class="flex max-lg:flex-col gap-6 w-full max-w-7xl">
             <div class="flex-1">
                 <h1 class="text-3xl">Minha Conta</h1>
@@ -21,10 +21,6 @@
                     <a class="flex px-3 py-2 gap-6 justify-between">
                         <div>E-mail</div>
                         <div th:text="${user.email}"></div>
-                    </a>
-                    <a class="flex px-3 py-2 gap-6 justify-between">
-                        <div>Nome de usuário</div>
-                        <div th:text="${user.username}"></div>
                     </a>
                 </div>
                 <div th:if="${!#lists.isEmpty(user.products)}">
