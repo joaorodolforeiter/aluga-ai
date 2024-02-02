@@ -13,3 +13,5 @@ spring:
       max-request-size: 50MB
 storage:
   location: /home/joao/Documents/aluga_ai
+server:
+  port: 25565

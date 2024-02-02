@@ -8,6 +8,8 @@ import com.alugai.alugaai.repository.RentRepository;
 import com.alugai.alugaai.security.SecurityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,7 +45,7 @@ public class RentController {
         Product product = optionalProduct.get();
 
         if (product.getOwner().equals(user)) {
-            return "account";
+            return "redirect:/account";
         }
 
         rent.setRenter(user);
@@ -52,6 +54,23 @@ public class RentController {
         rentRepository.save(rent);
 
         return "redirect:/";
+
+    }
+
+    @GetMapping("/rents")
+    public String getRentPage(Model model) {
+
+        var optionalLoggedUser = securityService.getSessionUser();
+
+        if (optionalLoggedUser.isEmpty()) {
+            return "redirect:/";
+        }
+
+        var rents = rentRepository.findByRenter(optionalLoggedUser.get());
+
+        model.addAttribute("rents", rents);
+
+        return "rents";
 
     }
 

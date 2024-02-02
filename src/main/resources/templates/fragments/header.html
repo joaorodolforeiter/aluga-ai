@@ -1,6 +1,6 @@
 <header th:fragment="header"
         xmlns:sec="http://www.w3.org/1999/xhtml"
-        class="bg-slate-100 fixed w-full border-b border-slate-300 shadow-sm" >
+        class="bg-slate-100 fixed w-full border-b border-slate-300 shadow-sm">
 
     <nav class="mx-auto flex max-w-7xl items-center justify-between p-4 lg:p-2 px-4 lg:px-10">
 
@@ -13,6 +13,7 @@
             <div class="gap-x-6 hidden sm:flex">
                 <a href="/products" class="text-sm font-semibold text-gray-900">Produtos</a>
                 <a href="/add/product" class="text-sm font-semibold text-gray-900">Novo Item</a>
+                <a href="/rents" class="text-sm font-semibold text-gray-900">Meus itens alugados</a>
             </div>
 
             <a sec:authorize="!isAuthenticated()"
@@ -42,10 +43,17 @@
     <div class="sm:hidden hidden shadow-xl" id="mobile-menu">
         <div class="px-4 py-3 divide-y text-center divide-slate-300">
             <a href="/products"
-               class="text-gray-900 text-lg block px-3 py-4 font-medium">Produtos</a>
+               class="text-gray-900 text-lg block px-3 py-4 font-light">
+                Produtos
+            </a>
             <a href="/add/product"
-               class="text-gray-900 text-lg block px-3 py-4 font-medium">Novo
-                Item</a>
+               class="text-gray-900 text-lg block px-3 py-4 font-light">
+                Novo Item
+            </a>
+            <a href="/rents"
+               class="text-gray-900 text-lg block px-3 py-4 font-light">
+                Meus itens alugados
+            </a>
         </div>
     </div>
 

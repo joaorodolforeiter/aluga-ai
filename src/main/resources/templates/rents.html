@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="overflow-y-scroll">
+
+    <header th:replace="~{fragments/header :: header}"></header>
+
+    <main class="flex flex-col items-center pt-28 p-4">
+        <div class="max-w-xl w-full flex flex-col gap-3">
+            <div
+                    th:class="|p-3 border border-slate-400 rounded-lg w-full shadow-sm space-y-3 ${rent.isApproved() ? 'bg-green-100' : 'bg-red-100'}|"
+                    th:each="rent : ${rents}">
+
+                <div class="flex justify-between items-center flex-wrap">
+                    <div class="text-xl" th:text="${rent.product.name}"></div>
+                    <div>
+                        <span class="font-light">de</span>
+                        <span class="font-medium" th:text="${rent.startDate}"></span>
+                        <span class="font-light">até</span>
+                        <span class="font-medium" th:text="${rent.endDate}"></span>
+                    </div>
+                </div>
+                <div class="flex gap-2 items-center">
+                    <img
+                            class="w-8 aspect-square object-cover rounded-full"
+                            th:src="|/public/${rent.product.owner.getEmail()}.png|" alt="">
+                    <div>
+                        <span th:text="${rent.product.owner.name}"></span>
+                        <span class="font-light"  th:text="${rent.isApproved() ? 'aprovou seu pedido' : 'ainda não aprovou seu pedido'}"></span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
