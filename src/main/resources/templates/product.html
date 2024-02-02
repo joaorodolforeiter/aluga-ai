@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -9,29 +9,53 @@
 <body>
     <header th:replace="~{fragments/header :: header}"></header>
     <main class="bg-white flex flex-col items-center pt-20 min-h-screen">
-        <div class="flex max-md:flex-col max-w-6xl gap-6 p-6 w-full h-full">
-            <div class="flex-1 flex justify-center">
-                <img class="max-w-96 max-sm:aspect-video w-full aspect-square object-cover border border-slate-300 shadow-sm rounded-lg"
-                     th:src="@{|/files/${product.photoPath}|}"
-                     alt="">
-            </div>
-            <div class="flex flex-col gap-4 flex-1">
-                <div class="flex items-center gap-3">
-                    <h2 class="text-3xl font-semibold" th:text="${product.name}"></h2> -
-                    <div th:text="${product.category.name}"></div>
+        <div class="flex flex-col max-w-5xl gap-12 p-6 w-full h-full">
+
+            <img class="aspect-[2/1] self-center w-full object-cover border border-slate-300 shadow-md rounded-lg"
+                 th:src="@{|/files/${product.photoPath}|}"
+                 alt="">
+
+            <div class="flex gap-4 flex-1 md:p-6 max-md:flex-col">
+                <div class="flex flex-col gap-4 flex-1">
+                    <div class="flex items-center gap-3">
+                        <h2 class="text-3xl font-semibold" th:text="${product.name}"></h2> -
+                        <div th:text="${product.category.name}"></div>
+                    </div>
+                    <div class="flex gap-3 items-center">
+                        <img class="w-10 h-10 object-cover rounded-full"
+                             th:src="|/public/${product.owner.username}.png|" alt="">
+                        <div th:text="|${product.owner.name} ${product.owner.surname}|"></div>
+                    </div>
+                    <p class="max-w-xl" th:text="${product.description}"></p>
                 </div>
-                <div class="flex gap-3 items-center">
-                    <img class="w-10 h-10 object-cover rounded-full"
-                         th:src="|/public/${product.owner.username}.png|" alt="">
-                    <div th:text="|${product.owner.name} ${product.owner.surname}|"></div>
+                <div class="flex-1 flex flex-col items-center">
+                    <form
+                            th:action="|/rent/${product.id}|"
+                            method="post"
+                            sec:authorize="isAuthenticated()"
+                            th:object="${rent}"
+                            class="w-full max-w-96 flex flex-col gap-4 bg-slate-100 border border-slate-300 shadow-sm rounded-lg p-6">
+                        <div class="text-xl font-bold">$48 por dia</div>
+                        <div>
+                            <label for="start-date" class="block text-sm font-medium leading-6 text-gray-900">
+                                Data de inicio:</label>
+                            <input id="start-date" th:field="*{startDate}" type="date" required
+                                   class="mt-2 block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        </div>
+                        <div>
+                            <label for="end-date" class="block text-sm font-medium leading-6 text-gray-900">
+                                Data de retorno:</label>
+                            <input id="end-date" th:field="*{endDate}" type="date" required
+                                   class="mt-2 block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        </div>
+                        <button class="bg-slate-300 hover:bg-slate-400 border border-slate-400 p-2 rounded-lg transition-all">
+                            Reservar
+                        </button>
+                    </form>
+                    <div sec:authorize="!isAuthenticated()">Entre para poder alugar produtos</div>
                 </div>
-                <p class="max-w-xl" th:text="${product.description}"></p>
-                <form action="">
-                    <button class="bg-slate-100 hover:bg-slate-200 max-sm:w-full border border-slate-200 p-2 rounded-lg transition-all">
-                        Alugar
-                    </button>
-                </form>
             </div>
+
         </div>
     </main>
 </body>

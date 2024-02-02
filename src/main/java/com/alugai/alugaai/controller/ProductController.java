@@ -2,6 +2,7 @@ package com.alugai.alugaai.controller;
 
 import com.alugai.alugaai.domain.Product;
 import com.alugai.alugaai.domain.ProductCategory;
+import com.alugai.alugaai.domain.Rent;
 import com.alugai.alugaai.domain.User;
 import com.alugai.alugaai.repository.ProductCategoryRepository;
 import com.alugai.alugaai.repository.ProductRepository;
@@ -56,6 +57,7 @@ public class ProductController {
         }
 
         model.addAttribute("product", optionalProduct.get());
+        model.addAttribute("rent", new Rent());
         return "product";
 
     }

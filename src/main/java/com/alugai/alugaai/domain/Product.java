@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Collection;
+
 @Data
 @Entity
 @AllArgsConstructor
@@ -28,5 +30,8 @@ public class Product {
 
     @ManyToOne(fetch = FetchType.EAGER)
     private ProductCategory category;
+
+    @OneToMany(mappedBy = "product")
+    private Collection<Rent> rents;
 
 }

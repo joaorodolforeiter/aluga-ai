@@ -21,7 +21,6 @@ import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
-@Transactional
 public class UserController {
 
     private final SecurityService securityService;
