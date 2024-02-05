@@ -12,16 +12,14 @@
 
     <main class="flex flex-col items-center min-h-screen pt-28">
 
-        <div class="mx-4 sm:bg-slate-50 flex justify-center gap-3 px-3 py-1 rounded-lg sm:shadow-sm sm:border border-slate-300 flex-wrap">
-            <a href="/products"
-               class="max-sm:border flex-1 text-center max-sm:shadow-sm border-slate-300 max-sm:bg-slate-100 px-3 py-1 rounded-md hover:bg-slate-200 transition-all">
-                Todos
-            </a>
-            <a
-                    class="max-sm:border flex-1 text-center max-sm:shadow-sm border-slate-300 max-sm:bg-slate-50 px-3 py-1 rounded-md hover:bg-slate-200 block transition-all"
-                    th:each="category : ${categories}"
-                    th:text="${category.name}"
-                    th:href="@{|/products?q=${category.name}|}">
+        <div class="flex flex-wrap gap-12 justify-center">
+            <a class="flex flex-col gap-2 items-center hover:scale-110 transition-all ease-in-out duration-200"
+               th:each="category : ${categories}"
+               th:href="@{|/products?q=${category.name}|}">
+                <div class="size-20 rounded-full bg-teal-200 shadow-sm">
+                    <img class="scale-[130%] -translate-y-1.5 translate-x-1.5" src="/assets/music.png" alt="music">
+                </div>
+                <div class="text-sm text-gray-500" th:text="${category.name}"></div>
             </a>
         </div>
 
