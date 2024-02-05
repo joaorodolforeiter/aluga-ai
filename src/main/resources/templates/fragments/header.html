@@ -21,7 +21,7 @@
                 <div class="gap-x-6 hidden sm:flex">
                     <a href="/products" class="text-sm font-semibold text-gray-900">Produtos</a>
                     <a href="/add/product" class="text-sm font-semibold text-gray-900">Novo Item</a>
-                    <a href="/rents" class="text-sm font-semibold text-gray-900">Meus itens alugados</a>
+                    <a sec:authorize="isAuthenticated()" href="/rents" class="text-sm font-semibold text-gray-900">Meus itens alugados</a>
                 </div>
 
                 <a sec:authorize="!isAuthenticated()"
@@ -54,7 +54,7 @@
                class="text-gray-900 text-lg block px-3 py-4 font-light">
                 Novo Item
             </a>
-            <a href="/rents"
+            <a sec:authorize="isAuthenticated()" href="/rents"
                class="text-gray-900 text-lg block px-3 py-4 font-light">
                 Meus itens alugados
             </a>
