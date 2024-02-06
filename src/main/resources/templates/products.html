@@ -17,7 +17,10 @@
                th:each="category : ${categories}"
                th:href="@{|/products?q=${category.name}|}">
                 <div class="size-20 rounded-full bg-teal-200 shadow-sm">
-                    <img class="scale-[130%] -translate-y-1.5 translate-x-1.5" src="/assets/music.png" alt="music">
+                    <img
+                            class="scale-[130%] -translate-y-1.5 translate-x-1.5"
+                            th:src="|/files/${category.imagePath}|"
+                            alt="music">
                 </div>
                 <div class="text-sm text-gray-500" th:text="${category.name}"></div>
             </a>

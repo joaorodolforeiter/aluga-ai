@@ -19,6 +19,8 @@ public class ProductCategory {
 
     private String name;
 
+    public String imagePath;
+
     @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
     private Collection<Product> products;
 
