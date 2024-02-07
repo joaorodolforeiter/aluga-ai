@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public User saveUser(UserRegistrationDto registrationDto) {
+    public void saveUser(UserRegistrationDto registrationDto) {
 
         User user = new User();
 
@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
         Role role = roleRepository.findByName("USER");
         user.setRoles(Collections.singletonList(role));
 
-        return userRepository.save(user);
+        userRepository.save(user);
 
     }
 
@@ -46,8 +46,8 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByEmail(email);
     }
 
-    public User updateUser(User user) {
-        return userRepository.save(user);
+    public void updateUser(User user) {
+        userRepository.save(user);
     }
 
 }

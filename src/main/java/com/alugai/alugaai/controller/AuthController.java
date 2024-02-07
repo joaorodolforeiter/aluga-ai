@@ -30,7 +30,7 @@ public class AuthController {
         return "register";
     }
 
-    @PostMapping("/register/save")
+    @PostMapping("/register")
     public String register(
             @Valid @ModelAttribute("user") UserRegistrationDto user
     ) {

@@ -1,7 +1,6 @@
 package com.alugai.alugaai.security;
 
 import com.alugai.alugaai.domain.User;
-import com.alugai.alugaai.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;

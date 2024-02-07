@@ -31,10 +31,11 @@ public class FileUploadController {
                         HttpHeaders.CONTENT_DISPOSITION,
                         "attachment; filename=\"" + file.getFilename() + "\"")
                 .body(file);
+
     }
 
     @ExceptionHandler(StorageFileNotFoundException.class)
-    public ResponseEntity<?> handleStorageFileNotFound(StorageFileNotFoundException exc) {
+    public ResponseEntity<?> handleStorageFileNotFound(StorageFileNotFoundException ignoredExc) {
         return ResponseEntity.notFound().build();
     }
 

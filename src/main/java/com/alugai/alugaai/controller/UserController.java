@@ -4,7 +4,6 @@ import com.alugai.alugaai.domain.User;
 import com.alugai.alugaai.security.SecurityService;
 import com.alugai.alugaai.service.UserService;
 import com.alugai.alugaai.storage.StorageService;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -43,7 +42,7 @@ public class UserController {
     }
 
     @GetMapping("/public/{email}.png")
-    public ResponseEntity<?> getUserProfileImage(Model model, @PathVariable String email) {
+    public ResponseEntity<?> getUserProfileImage(@PathVariable String email) {
 
         var optionalUser = userService.findByEmail(email);
 

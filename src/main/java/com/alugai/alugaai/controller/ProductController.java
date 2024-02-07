@@ -75,7 +75,6 @@ public class ProductController {
             @RequestPart("product-photo") MultipartFile productImage
     ) {
 
-
         Optional<User> optionalLoggedUser = securityService.getSessionUser();
 
         if (optionalLoggedUser.isPresent()) {
