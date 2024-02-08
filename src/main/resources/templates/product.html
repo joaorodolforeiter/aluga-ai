@@ -37,7 +37,7 @@
                             sec:authorize="isAuthenticated()"
                             th:object="${rent}"
                             class="w-full max-w-96 flex flex-col gap-4 bg-slate-50 border border-slate-300 shadow-sm rounded-lg p-6">
-                        <div class="text-xl font-bold" th:text="${'R$ '+#numbers.formatDecimal(product.price, 1, 'COMMA', 2, 'POINT')+' por dia'}"></div>
+                        <div class="text-xl font-bold" th:text="${'R$ '+#numbers.formatDecimal(product.price, 1,'POINT' , 2,'COMMA')+' por dia'}"></div>
                         <div>
                             <label for="start-date" class="block text-sm font-medium leading-6 text-gray-900">
                                 Data de inicio:</label>
