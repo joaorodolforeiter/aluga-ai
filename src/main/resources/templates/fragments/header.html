@@ -1,6 +1,6 @@
 <header th:fragment="header"
         xmlns:sec="http://www.w3.org/1999/xhtml"
-        class="bg-slate-50 fixed w-full border-b border-slate-300 shadow-sm z-50">
+        class="bg-slate-50/50 backdrop-blur border border-slate-200 fixed w-full z-50">
 
     <nav class="mx-auto flex max-w-7xl items-center justify-between py-4 px-6 lg:p-2  lg:px-10">
 
@@ -15,13 +15,14 @@
             <img class="size-12 w-auto" src="/assets/logo.svg" alt="">
         </a>
 
-        <div class="flex-1 flex flex-row-reverse">
+        <div class="max-sm:flex-1 flex flex-row-reverse">
             <div class="flex items-center gap-6 min-w-12">
 
                 <div class="gap-x-6 hidden sm:flex">
                     <a href="/products" class="text-sm font-semibold text-gray-900">Produtos</a>
                     <a href="/add/product" class="text-sm font-semibold text-gray-900">Novo Item</a>
-                    <a sec:authorize="isAuthenticated()" href="/rents" class="text-sm font-semibold text-gray-900">Meus itens alugados</a>
+                    <a sec:authorize="isAuthenticated()" href="/rents" class="text-sm font-semibold text-gray-900">Meus
+                        itens alugados</a>
                 </div>
 
                 <a sec:authorize="!isAuthenticated()"
