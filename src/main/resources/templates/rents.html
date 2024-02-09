@@ -7,10 +7,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="overflow-y-scroll">
-
     <header th:replace="~{fragments/header :: header}"></header>
-
-    <main class="flex flex-col items-center pt-28 p-4">
+    <main class="flex flex-col items-center pt-28 p-4 min-h-screen">
         <div class="max-w-xl w-full flex flex-col gap-3">
             <div
                     th:class="|p-3 border border-slate-300 rounded-lg w-full shadow-sm space-y-3 ${rent.isApproved() ? 'bg-green-50' : 'bg-red-50'}|"
@@ -44,6 +42,6 @@
             </div>
         </div>
     </main>
-
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
 </body>
 </html>
