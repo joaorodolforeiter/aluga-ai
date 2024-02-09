@@ -1,6 +1,6 @@
 <header th:fragment="header"
         xmlns:sec="http://www.w3.org/1999/xhtml"
-        class="bg-slate-50/50 backdrop-blur border border-slate-200 fixed w-full z-50">
+        class="bg-slate-50/50 backdrop-blur border-b border-slate-200 fixed w-full z-50">
 
     <nav class="mx-auto flex max-w-7xl items-center justify-between py-4 px-6 lg:p-2  lg:px-10">
 
@@ -14,6 +14,25 @@
         <a href="/" class="-m-1.5 p-1.5">
             <img class="size-12 w-auto" src="/assets/logo.svg" alt="">
         </a>
+
+        <div class="flex-1 w-full flex justify-center max-sm:hidden">
+            <search class="w-full max-w-md mx-8">
+                <form action="/products">
+                    <label class="sr-only" for="search-query">Find a Movie</label>
+                    <div class="flex items-center px-4 py-1.5 focus-within:scale-105 ease-in-out duration-200 bg-slate-100 border border-slate-300 rounded-full">
+                        <input
+                                class="focus:outline-none w-full bg-transparent placeholder:text-slate-600"
+                                type="search"
+                                id="search-query"
+                                placeholder="Pesquise por itens..."
+                                name="q"/>
+                        <button>
+                            <img class="size-6 opacity-50" src="/assets/magnifying-glass.svg" alt="search">
+                        </button>
+                    </div>
+                </form>
+            </search>
+        </div>
 
         <div class="max-sm:flex-1 flex flex-row-reverse">
             <div class="flex items-center gap-6 min-w-12">

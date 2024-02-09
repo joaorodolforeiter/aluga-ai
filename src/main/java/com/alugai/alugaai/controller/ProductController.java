@@ -27,9 +27,18 @@ public class ProductController {
     private final StorageService storageService;
 
     @GetMapping({"/products", ""})
-    public String getProductsPage(@RequestParam("q") Optional<String> optionalCategoryName, Model model) {
+    public String getProductsPage(
+            @RequestParam("category") Optional<String> optionalCategoryName,
+            @RequestParam("q") Optional<String> optionalQuery,
+            Model model
+    ) {
 
         model.addAttribute("categories", categoryRepository.findAll());
+
+        if (optionalQuery.isPresent()) {
+            model.addAttribute("products", productRepository.findByNameContaining(optionalQuery.get()));
+            return "products";
+        }
 
         if (optionalCategoryName.isEmpty()) {
             model.addAttribute("products", productRepository.findAll());
