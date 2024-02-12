@@ -1,7 +1,6 @@
 package com.alugai.alugaai.controller;
 
 import com.alugai.alugaai.domain.Product;
-import com.alugai.alugaai.domain.ProductCategory;
 import com.alugai.alugaai.domain.Rent;
 import com.alugai.alugaai.domain.User;
 import com.alugai.alugaai.repository.ProductCategoryRepository;
@@ -9,6 +8,7 @@ import com.alugai.alugaai.repository.ProductRepository;
 import com.alugai.alugaai.security.SecurityService;
 import com.alugai.alugaai.storage.StorageService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,31 +28,61 @@ public class ProductController {
 
     @GetMapping({"/products", ""})
     public String getProductsPage(
-            @RequestParam("category") Optional<String> optionalCategoryName,
-            @RequestParam("q") Optional<String> optionalQuery,
+            @RequestParam(value = "category", defaultValue = "") String categoryName,
+            @RequestParam(value = "q", defaultValue = "") String query,
+            @RequestParam(defaultValue = "1") Integer page,
             Model model
     ) {
 
         model.addAttribute("categories", categoryRepository.findAll());
-
-        if (optionalQuery.isPresent()) {
-            model.addAttribute("products", productRepository.findByNameContaining(optionalQuery.get()));
-            return "products";
-        }
-
-        if (optionalCategoryName.isEmpty()) {
-            model.addAttribute("products", productRepository.findAll());
-            return "products";
-        }
-
-        var optionalRepoCategory = categoryRepository.findByName(optionalCategoryName.get());
-
-        if (optionalRepoCategory.isPresent()) {
-            ProductCategory category = optionalRepoCategory.get();
-            model.addAttribute("products", category.getProducts());
-        }
+        model.addAttribute("query", query);
+        model.addAttribute("page", page);
+        model.addAttribute("selectedCategory", categoryName);
 
         return "products";
+
+    }
+
+    @GetMapping("products/list")
+    public String getProductsList(
+            @RequestParam(value = "category", defaultValue = "") String optionalCategoryName,
+            @RequestParam(value = "q", defaultValue = "") String optionalQuery,
+            @RequestParam(defaultValue = "1") Integer page,
+            Model model
+    ) {
+
+        model.addAttribute("category", optionalCategoryName);
+        model.addAttribute("page", page);
+        model.addAttribute("query", optionalQuery);
+
+        if (!optionalQuery.isEmpty()) {
+            model.addAttribute(
+                    "products",
+                    productRepository.findByNameContaining(
+                            optionalQuery,
+                            Pageable.ofSize(30).withPage(page - 1)
+                    )
+            );
+            return "fragments/product-list";
+        }
+
+        if (!optionalCategoryName.isEmpty()) {
+            model.addAttribute("products",
+                    productRepository.findByCategoryName(
+                            optionalCategoryName,
+                            Pageable.ofSize(30).withPage(page - 1)
+                    )
+            );
+            return "fragments/product-list";
+        }
+
+        model.addAttribute("products",
+                productRepository.findAll(
+                        Pageable.ofSize(30).withPage(page - 1)
+                )
+        );
+
+        return "fragments/product-list";
 
     }
 

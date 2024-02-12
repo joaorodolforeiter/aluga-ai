@@ -82,11 +82,8 @@
     </div>
 
     <script>
-        const menu = document.getElementById("mobile-menu");
-        const navbarToggleButton = document.getElementById("navbar-toggle-button");
-
-        navbarToggleButton.addEventListener('click', () => {
-            menu.classList.toggle('hidden');
+        document.getElementById("mobile-menu").addEventListener('click', () => {
+            document.getElementById("navbar-toggle-button").classList.toggle('hidden');
         });
     </script>
 

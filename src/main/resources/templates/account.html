@@ -23,17 +23,7 @@
                         <div th:text="${user.email}"></div>
                     </a>
                 </div>
-                <div th:if="${!#lists.isEmpty(user.products)}">
-                    <div class="text-xl mt-4">Produtos Cadastrados</div>
-                    <div class="flex flex-col divide-y divide-slate-300 mt-4 shadow-sm bg-slate-50 border border-slate-300 rounded-lg max-w-lg">
-                        <a class="flex px-3 py-2 gap-6 justify-between hover:bg-slate-200 transition-all"
-                           th:href="@{|/products/${product.id}}"
-                           th:each="product : ${user.getProducts()}">
-                            <div class="truncate max-w-64" th:text="${product.name}"></div>
-                            <div th:text="${product.category.name}"></div>
-                        </a>
-                    </div>
-                </div>
+
             </div>
             <div class="flex flex-col items-center flex-1">
                 <div class="border w-full max-w-md border-slate-300 bg-slate-50 shadow-sm rounded-lg flex flex-col items-center p-6 gap-4">

@@ -1,0 +1,41 @@
+<th:block>
+    <div th:if="${!#lists.isEmpty(products)}"
+         class="grid grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+
+        <a class="hover:bg-gradient-to-t from-teal-50 border border-slate-200 p-3 rounded-lg hover:scale-105 ease-in-out duration-200"
+           th:href="@{|/products/${product.id}|}"
+           th:each="product : ${products}">
+            <div class="aspect-[6/5] w-full overflow-hidden rounded-lg bg-white border border-slate-300">
+                <img th:src="@{|/files/${product.photoPath}|}"
+                     class="h-full w-full object-cover object-center aspect-square border-none" alt="">
+            </div>
+            <h3 class="mt-4 text-sm text-gray-700 truncate max-w-40" th:text="${product.name}"></h3>
+            <p class="mt-1 text-lg font-medium text-gray-900"
+               th:text="${'R$ '+#numbers.formatDecimal(product.price, 1, 'POINT', 2, 'COMMA')}"></p>
+            <div th:text="${product.id}"></div>
+        </a>
+
+    </div>
+
+    <div
+            th:if="${!#lists.isEmpty(products)}"
+            id="more-products"
+            class="flex flex-col items-center mt-12">
+        <button
+                class="py-2 px-3 w-full text-center w-fit bg-blue-900 hover:bg-blue-800 text-white rounded border-b-4 border-blue-700 font-semibold transition-all hover:border-blue-500 shadow-sm transition-all duration-150 transform active:scale-95"
+                th:hx-get="|/products/list?category=${category}&page=${page + 1}&q=${query}|"
+                hx-target="#more-products"
+                hx-swap="outerHTML">
+            Carregar mais produtos
+        </button>
+    </div>
+
+
+    <div class="flex flex-col items-center opacity-60" th:if="${#lists.isEmpty(products)}">
+        <img class="w-32" src="/assets/smiley-sad-thin.svg" alt="smiley sad">
+        <div>
+            Sem mais produtos
+        </div>
+    </div>
+
+</th:block>

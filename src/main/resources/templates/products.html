@@ -5,6 +5,9 @@
     <title>Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10"
+            integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC"
+            crossorigin="anonymous"></script>
 </head>
 <body class="overflow-y-scroll">
 
@@ -15,7 +18,9 @@
         <div class="flex flex-wrap gap-12 justify-center">
             <a class="flex flex-col gap-2 items-center hover:scale-110 transition-all ease-in-out duration-200"
                th:each="category : ${categories}"
-               th:href="@{|/products?category=${category.name}|}">
+               th:href="@{|/products?category=${category.name}|}"
+               hx-boost="true"
+            >
                 <div class="size-20 rounded-full bg-teal-200 shadow-sm">
                     <img
                             class="scale-[130%] -translate-y-1.5 translate-x-1.5"
@@ -26,31 +31,11 @@
             </a>
         </div>
 
-        <div class="mx-auto max-w-2xl px-4 py-8 sm:px-6 sm:py-16 lg:max-w-7xl lg:px-8 mb-12">
-
-            <div th:if="${!#lists.isEmpty(products)}"
-                 class="grid grid-cols-2 gap-4 sm:gap-6 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-
-                <a class="hover:bg-gradient-to-t from-teal-50 border border-slate-200 p-3 rounded-lg hover:scale-105 ease-in-out duration-200"
-                   th:href="@{|/products/${product.id}|}"
-                   th:each="product : ${products}">
-                    <div class="aspect-[6/5] w-full overflow-hidden rounded-lg bg-white border border-slate-300">
-                        <img th:src="@{|/files/${product.photoPath}|}"
-                             class="h-full w-full object-cover object-center aspect-square border-none" alt="">
-                    </div>
-                    <h3 class="mt-4 text-sm text-gray-700 truncate max-w-40" th:text="${product.name}"></h3>
-                    <p class="mt-1 text-lg font-medium text-gray-900" th:text="${'R$ '+#numbers.formatDecimal(product.price, 1, 'POINT', 2, 'COMMA')}"></p>
-                </a>
-
-            </div>
-
-            <div class="flex flex-col items-center" th:if="${#lists.isEmpty(products)}">
-                <img class="w-32" src="/assets/smiley-sad-thin.svg" alt="smiley sad">
-                <div class="">
-                    Sem produtos cadastrados
-                </div>
-            </div>
-
+        <div
+                id="product-container"
+                th:hx-get="|/products/list?category=${selectedCategory}&q=${query}|"
+                hx-trigger="load"
+                class="mx-auto max-w-2xl px-4 py-8 sm:px-6 sm:py-16 lg:max-w-7xl lg:px-8 mb-12">
         </div>
 
     </main>

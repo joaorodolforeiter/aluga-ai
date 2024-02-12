@@ -21,7 +21,7 @@ public class ProductCategory {
 
     public String imagePath;
 
-    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     private Collection<Product> products;
 
 }
