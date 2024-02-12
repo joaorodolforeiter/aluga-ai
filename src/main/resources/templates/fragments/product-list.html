@@ -2,7 +2,7 @@
     <div th:if="${!#lists.isEmpty(products)}"
          class="grid grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
 
-        <a class="hover:bg-gradient-to-t from-teal-50 border border-slate-200 p-3 rounded-lg hover:scale-105 ease-in-out duration-200"
+        <a target="_blank" class="hover:bg-gradient-to-t from-teal-50 border border-slate-200 p-3 rounded-lg hover:scale-105 ease-in-out duration-200"
            th:href="@{|/products/${product.id}|}"
            th:each="product : ${products}">
             <div class="aspect-[6/5] w-full overflow-hidden rounded-lg bg-white border border-slate-300">
@@ -21,13 +21,13 @@
             th:if="${!#lists.isEmpty(products)}"
             id="more-products"
             class="flex flex-col items-center mt-12">
-        <button
-                class="py-2 px-3 w-full text-center w-fit bg-blue-900 hover:bg-blue-800 text-white rounded border-b-4 border-blue-700 font-semibold transition-all hover:border-blue-500 shadow-sm transition-all duration-150 transform active:scale-95"
+        <div
                 th:hx-get="|/products/list?category=${category}&page=${page + 1}&q=${query}|"
                 hx-target="#more-products"
+                hx-trigger="revealed"
                 hx-swap="outerHTML">
-            Carregar mais produtos
-        </button>
+            <img class="opacity-60 animate-spin" src="/assets/circle-notch.svg" alt="spin">
+        </div>
     </div>
 
 
