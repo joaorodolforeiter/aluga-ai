@@ -1,8 +1,10 @@
 <th:block>
-    <div th:if="${!#lists.isEmpty(products)}"
+
+    <div th:if="${products.hasContent()}"
          class="grid grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
 
-        <a target="_blank" class="hover:bg-gradient-to-t from-teal-50 border border-slate-200 p-3 rounded-lg hover:scale-105 ease-in-out duration-200"
+        <a target="_blank"
+           class="hover:bg-gradient-to-t from-teal-50 border border-slate-200 p-3 rounded-lg hover:scale-105 ease-in-out duration-200"
            th:href="@{|/products/${product.id}|}"
            th:each="product : ${products}">
             <div class="aspect-[6/5] w-full overflow-hidden rounded-lg bg-white border border-slate-300">
@@ -18,7 +20,7 @@
     </div>
 
     <div
-            th:if="${!#lists.isEmpty(products)}"
+            th:if="${products.hasNext()}"
             id="more-products"
             class="flex flex-col items-center mt-12">
         <div
@@ -31,7 +33,8 @@
     </div>
 
 
-    <div class="flex flex-col items-center opacity-60" th:if="${#lists.isEmpty(products)}">
+    <div th:if="${products.isLast()}"
+         class="flex flex-col items-center opacity-60">
         <img class="w-32" src="/assets/smiley-sad-thin.svg" alt="smiley sad">
         <div>
             Sem mais produtos
