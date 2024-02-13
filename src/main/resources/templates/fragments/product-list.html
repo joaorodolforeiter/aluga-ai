@@ -1,13 +1,13 @@
 <th:block>
 
     <div th:if="${products.hasContent()}"
-         class="grid grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+         class="grid grid-cols-2 gap-4 mb-4 sm:mb-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
 
         <a target="_blank"
-           class="hover:bg-gradient-to-t shadow-sm hover:shadow-md from-teal-50 border border-slate-200 p-3 rounded-lg hover:scale-105 ease-in-out duration-200"
+           class="hover:bg-gradient-to-t from-teal-50 transition-all shadow-sm hover:shadow-md border border-slate-200 p-3 rounded-lg hover:scale-105 ease-in-out duration-200"
            th:href="@{|/products/${product.id}|}"
            th:each="product : ${products}">
-            <div class="aspect-[6/5] w-full overflow-hidden rounded-lg bg-white border border-slate-300">
+            <div class="aspect-[8/7] w-full overflow-hidden rounded-lg bg-white border border-slate-300">
                 <img th:src="@{|/files/${product.photoPath}|}"
                      class="h-full w-full object-cover object-center aspect-square border-none" alt="">
             </div>
