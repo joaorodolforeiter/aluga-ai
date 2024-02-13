@@ -14,7 +14,6 @@
             <h3 class="mt-4 text-sm text-gray-700 truncate max-w-40" th:text="${product.name}"></h3>
             <p class="mt-1 text-lg font-medium text-gray-900"
                th:text="${'R$ '+#numbers.formatDecimal(product.price, 1, 'POINT', 2, 'COMMA')}"></p>
-            <div th:text="${product.id}"></div>
         </a>
 
     </div>
@@ -32,12 +31,11 @@
         </div>
     </div>
 
-
-    <div th:if="${products.isLast()}"
+    <div th:if="${products.totalElements == 0}"
          class="flex flex-col items-center opacity-60">
         <img class="w-32" src="/assets/smiley-sad-thin.svg" alt="smiley sad">
         <div>
-            Sem mais produtos
+            Sem produtos
         </div>
     </div>
 
