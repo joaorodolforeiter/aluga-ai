@@ -17,14 +17,14 @@
     <main class="flex flex-col items-center min-h-screen pt-28">
 
         <div class="flex flex-wrap gap-8 sm:gap-12 justify-center mx-6">
-            <a class="flex flex-col gap-2 items-center hover:scale-110 transition-all ease-in-out duration-200"
+            <a class="flex flex-col gap-2 items-center hover:scale-110 transition-all ease-in-out duration-200 drop-shadow-sm hover:drop-shadow-md"
                th:each="category : ${categories}"
                th:hx-get="|/products/list?category=${category.name}|"
                th:hx-push-url="|/products?category=${category.name}|"
                hx-target="#product-container"
                hx-swap="innerHTML"
             >
-                <div class="size-20 rounded-full bg-teal-200 shadow-sm">
+                <div class="size-20 rounded-full bg-teal-200">
                     <img
                             class="scale-[130%] -translate-y-1.5 translate-x-1.5"
                             th:src="|/files/${category.imagePath}|"
