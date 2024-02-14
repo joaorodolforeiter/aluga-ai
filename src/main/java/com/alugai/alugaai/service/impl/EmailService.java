@@ -25,7 +25,7 @@ public class EmailService {
             simpleMailMessage.setSubject(title);
             simpleMailMessage.setText(message);
             javaMailSender.send(simpleMailMessage);
-            return "Email Enviado";
+            return "Email Enviado!";
         }catch (Exception ex){
             return "erro ao enviar Email";
         }
