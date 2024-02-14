@@ -1,7 +1,9 @@
 package com.alugai.alugaai.dto;
 
+import com.alugai.alugaai.domain.User;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
+import org.springframework.beans.BeanUtils;
 
 @Data
 public class UserRegistrationDto {
@@ -14,5 +16,11 @@ public class UserRegistrationDto {
     private String email;
     @NotEmpty
     private String password;
+
+    public User convert(UserRegistrationDto userRegistrationDto){
+        User user = new User();
+        BeanUtils.copyProperties(userRegistrationDto, user);
+        return  user;
+    }
 
 }

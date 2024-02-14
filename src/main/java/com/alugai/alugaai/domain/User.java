@@ -1,9 +1,7 @@
 package com.alugai.alugaai.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -23,18 +21,28 @@ public class User implements UserDetails {
 
     @Column(unique = true)
     private String email;
-
     private String name;
     private String surname;
     private String password;
-
     private String photoPath;
+    private String codePasswordRecovery;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
 
     @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
     private Collection<Product> products;
+
+
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @Setter(value = AccessLevel.NONE)
+    private List<PermissionUser> permissionUsers;
+    public void setPermissionUsers(List<PermissionUser> pu){
+        for(PermissionUser p:pu){
+            p.setUser(this);
+        }
+        this.permissionUsers = pu;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

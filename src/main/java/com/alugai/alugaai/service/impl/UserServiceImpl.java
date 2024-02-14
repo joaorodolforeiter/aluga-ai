@@ -38,7 +38,6 @@ public class UserServiceImpl implements UserService {
         user.setRoles(Collections.singletonList(role));
 
         userRepository.save(user);
-
     }
 
     @Override
