@@ -2,7 +2,7 @@
         xmlns:sec="http://www.w3.org/1999/xhtml"
         class="bg-white/90 backdrop-blur-lg border-b border-slate-200 fixed w-full z-50">
 
-    <nav class="mx-auto flex max-w-7xl items-center justify-between py-2.5 px-6 lg:px-10">
+    <nav class="mx-auto flex max-w-screen-2xl items-center justify-between py-4 px-6 lg:px-10">
 
         <div class="sm:hidden flex-1">
             <button id="navbar-toggle-button"
@@ -19,7 +19,7 @@
             <search class="w-full max-w-1/2">
                 <form action="/products">
                     <label class="sr-only" for="search-query">pesquisa de produtos</label>
-                    <div class="flex items-center px-4 py-2 hover:scale-105 focus-within:scale-105 ease-in-out duration-200 bg-white border border-slate-300 rounded-full">
+                    <div class="shadow-lg flex items-center px-4 py-2 hover:shadow-xl hover:scale-110 focus-within:scale-110 ease-in-out duration-200 bg-white border border-slate-300 rounded-full">
                         <input
                                 class="focus:outline-none w-full bg-transparent placeholder:text-slate-600"
                                 type="search"
@@ -36,6 +36,9 @@
 
         <div class="max-sm:flex-1 flex flex-row-reverse flex-1">
             <div class="flex items-center gap-6 min-w-12">
+                <a href="/add/product" class="font-semibold text-sm">
+                    Anunciar
+                </a>
                 <a sec:authorize="!isAuthenticated()"
                    href="/login"
                    class="text-sm font-semibold leading-6 text-gray-900">
