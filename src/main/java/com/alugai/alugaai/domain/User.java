@@ -34,16 +34,6 @@ public class User implements UserDetails {
     private Collection<Product> products;
 
 
-    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @Setter(value = AccessLevel.NONE)
-    private List<PermissionUser> permissionUsers;
-    public void setPermissionUsers(List<PermissionUser> pu){
-        for(PermissionUser p:pu){
-            p.setUser(this);
-        }
-        this.permissionUsers = pu;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;

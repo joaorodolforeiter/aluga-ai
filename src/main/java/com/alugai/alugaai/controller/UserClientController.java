@@ -18,5 +18,4 @@ public class UserClientController {
         return userClientService.register(userRegistrationDto);
     }
 
-
 }

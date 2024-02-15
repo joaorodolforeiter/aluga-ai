@@ -1,3 +1,8 @@
+/*
+*
+*
+*
+
 package com.alugai.alugaai.controller;
 
 import com.alugai.alugaai.domain.User;
@@ -23,5 +28,7 @@ public class UserManagementController {
         return userManagementService.alterPassword(user);
     }
 
-
 }
+
+*
+* */
