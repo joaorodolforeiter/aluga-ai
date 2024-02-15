@@ -10,6 +10,15 @@
 <body class="overflow-y-scroll">
     <header th:replace="~{fragments/header :: header}"></header>
     <main class="flex flex-col items-center pt-28 p-4 min-h-screen">
+
+        <div th:if="${#lists.isEmpty(rents)}"
+                class="flex flex-col items-center opacity-60">
+            <img class="w-32" src="/assets/smiley-sad-thin.svg" alt="smiley sad">
+            <div>
+                Sem produtos alugados
+            </div>
+        </div>
+
         <div class="max-w-xl w-full flex flex-col gap-3">
             <div
                     th:class="|p-3 border border-slate-300 rounded-lg w-full shadow-sm space-y-3 ${rent.isApproved() ? 'bg-green-50' : 'bg-red-50'}|"
