@@ -6,6 +6,8 @@ import com.alugai.alugaai.repository.UserClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.*;
+
 @Service
 public class UserClientService {
 
@@ -17,9 +19,15 @@ public class UserClientService {
 
     public User register(UserRegistrationDto userRegistrationDto){
         User user = new UserRegistrationDto().convert(userRegistrationDto);
+
         User newObject = userClientRepository.saveAndFlush(user);
         emailService.sendEmailText(newObject.getEmail(),"Cadastro no AlugaAi", " Registro realizado com sucesso. Teste01 ");
         return newObject;
 
     }
 }
+
+
+
+
+

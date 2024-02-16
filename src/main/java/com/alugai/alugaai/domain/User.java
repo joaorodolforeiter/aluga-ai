@@ -33,7 +33,6 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
     private Collection<Product> products;
 
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
