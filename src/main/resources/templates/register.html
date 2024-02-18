@@ -8,65 +8,153 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="h-screen">
-    <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-        <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-            <img class="mx-auto h-20 w-auto" src="/assets/logo.svg" alt="">
-            <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-                Crie sua conta
-            </h2>
-        </div>
-
-        <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form class="space-y-4" method="post" action="/register" th:object="${user}">
-                <div class="flex gap-3">
-                    <div class="flex-1">
-                        <label for="name" class="block text-sm font-medium leading-6 text-gray-900">
-                            Nome:</label>
-                        <div class="mt-2">
-                            <input id="name" th:field="*{name}" type="text" required
-                                   class="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                        </div>
-                    </div>
-                    <div class="flex-1">
-                        <label for="surname" class="block text-sm font-medium leading-6 text-gray-900">
-                            Sobrenome:
-                        </label>
-                        <div class="mt-2">
-                            <input id="surname" th:field="*{surname}" type="text" required
-                                   class="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <label for="email" class="block text-sm font-medium leading-6 text-gray-900">
-                        E-mail:
-                    </label>
-                    <div class="mt-2">
-                        <input id="email" th:field="*{email}" type="email" required
-                               class="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                    </div>
-                </div>
-                <div>
-                    <label for="password" class="block text-sm font-medium leading-6 text-gray-900">
-                        Senha:
-                    </label>
-                    <div class="mt-2">
-                        <input id="password" th:field="*{password}" type="password" required
-                               class="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                    </div>
-                </div>
-                <div>
-                    <button type="submit"
-                            class="flex w-full justify-center bg-blue-900 hover:bg-blue-800 rounded border-b-4 border-blue-700 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-800 transition-all duration-150 transform active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                        Entrar
-                    </button>
-                </div>
-            </form>
-            <p class="mt-10 text-center text-sm text-gray-500">
-                Já tem uma conta? Entre
-                <a href="/login" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">aqui</a>
-            </p>
-        </div>
+<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+        <img class="mx-auto h-20 w-auto" src="/assets/logo.svg" alt="">
+        <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+            Crie sua conta
+        </h2>
     </div>
+
+    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <form class="space-y-4" method="post" action="/register" th:object="${user}">
+            <div class="flex gap-3">
+                <div class="flex-1">
+                    <label for="name" class="block text-sm font-medium leading-6 text-gray-900">
+                        Nome:</label>
+                    <div class="mt-2">
+                        <input id="name" th:field="*{name}" type="text" required
+                               class="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <label for="surname" class="block text-sm font-medium leading-6 text-gray-900">
+                        Sobrenome:
+                    </label>
+                    <div class="mt-2">
+                        <input id="surname" th:field="*{surname}" type="text" required
+                               class="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    </div>
+                </div>
+            </div>
+            <div>
+                <label for="email" class="block text-sm font-medium leading-6 text-gray-900">
+                    E-mail:
+                </label>
+                <div class="mt-2">
+                    <input id="email" th:field="*{email}" type="email" required
+                           class="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                </div>
+            </div>
+            <div>
+                <label for="password" class="block text-sm font-medium leading-6 text-gray-900">
+                    Senha:
+                </label>
+                <div class="mt-2">
+                    <input id="password" th:field="*{password}" type="password" required
+                           class="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <label for="check" class="sr-only">
+                    checkbox
+                </label>
+                <input type="checkbox" name="" id="check" required>
+                Aceito os
+                <button id="tos-open-button" class="text-blue-500 hover:text-blue-700" type="button">termos de uso
+                </button>
+            </div>
+            <div>
+                <button type="submit"
+                        class="flex w-full justify-center bg-blue-900 hover:bg-blue-800 rounded border-b-4 border-blue-700 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-800 transition-all duration-150 transform active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                    Entrar
+                </button>
+            </div>
+        </form>
+        <p class="mt-10 text-center text-sm text-gray-500">
+            Já tem uma conta? Entre
+            <a href="/login" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">aqui</a>
+        </p>
+    </div>
+</div>
+<dialog class="backdrop:bg-slate-950/70 open:flex flex-col my-12 mb-6 gap-3 border border-slate-300 shadow-lg rounded-md p-6 max-w-xl">
+    <h2 class="font-semibold text-2xl">
+        Termos de Uso
+    </h2>
+    <h3 class="mt-2 text-lg font-light">
+        1. Aceitação dos Termos
+    </h3>
+    Ao acessar e usar este site, você aceita e concorda em estar vinculado por estes Termos de Uso.
+    <h3 class="mt-2 text-lg font-light">
+        2. Modificações nos Termos
+    </h3>
+    Reservamo-nos o direito de alterar estes Termos de Uso a qualquer momento. Recomendamos que você revise
+    regularmente esta página para quaisquer alterações.
+    <h3 class="mt-2 text-lg font-light">
+        3. Uso do Site
+    </h3>
+    Você concorda em usar o site apenas para fins legais e de maneira que não infrinja os direitos de, restrinja
+    ou
+    iniba o uso e aproveitamento do site por qualquer terceiro.
+    <h3 class="mt-2 text-lg font-light">
+        4. Direitos Autorais
+    </h3>
+    Todo o conteúdo do site é protegido por direitos autorais e não pode ser reproduzido sem a permissão
+    expressa
+    por escrito do proprietário dos direitos autorais.
+    <h3 class="mt-2 text-lg font-light">
+        5. Isenção de Responsabilidade
+    </h3>
+    O uso deste site é por sua conta e risco. Não garantimos que o site estará disponível o tempo todo ou que o
+    conteúdo do site seja preciso, atualizado ou completo.
+    <h3 class="mt-2 text-lg font-light">
+        6. Lei Aplicável
+    </h3>
+    Estes Termos de Uso serão regidos e interpretados conforme as leis do Brasil.
+    <h3 class="mt-2 text-lg font-light">
+        7. Contato
+    </h3>
+    Você concorda em usar o site apenas para fins legais e de maneira que não infrinja os direitos de, restrinja
+    ou
+    iniba o uso e aproveitamento do site por qualquer terceiro.
+    <h3 class="mt-2 text-lg font-light">
+        4. Direitos Autorais
+    </h3>
+    Todo o conteúdo do site é protegido por direitos autorais e não pode ser reproduzido sem a permissão
+    expressa
+    por escrito do proprietário dos direitos autorais.
+    <h3 class="mt-2 text-lg font-light">
+        5. Isenção de Responsabilidade
+    </h3>
+    O uso deste site é por sua conta e risco. Não garantimos que o site estará disponível o tempo todo ou que o
+    conteúdo do site seja preciso, atualizado ou completo.
+    <h3 class="mt-2 text-lg font-light">
+        6. Lei Aplicável
+    </h3>
+    Estes Termos de Uso serão regidos e interpretados conforme as leis do Brasil.
+    <h3 class="mt-2 text-lg font-light">
+        7. Contato
+    </h3>
+    Se você tiver alguma dúvida sobre estes Termos de Uso, entre em contato conosco pelo WhatsApp:
+    +55 47 98863-2826
+    <button type="button"
+            id="tos-close-button"
+            class="mt-2 flex w-full justify-center bg-blue-900 hover:bg-blue-800 rounded border-b-4 border-blue-700 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-800 transition-all duration-150 transform active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+        OK
+    </button>
+</dialog>
+<script>
+    const dialog = document.querySelector("dialog");
+    const tosOpenButton = document.querySelector("#tos-open-button");
+    const tosCloseButton = document.querySelector("#tos-close-button");
+
+    tosOpenButton.addEventListener('click', () => {
+        dialog.showModal();
+    })
+
+    tosCloseButton.addEventListener('click', () => {
+        dialog.close()
+    })
+</script>
 </body>
 </html>
