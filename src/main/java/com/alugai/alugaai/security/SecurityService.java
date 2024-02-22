@@ -1,6 +1,7 @@
 package com.alugai.alugaai.security;
 
 import com.alugai.alugaai.domain.User;
+import com.alugai.alugaai.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -13,13 +14,15 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class SecurityService {
 
+    private final UserService userService;
+
     public Optional<User> getSessionUser() {
 
         Authentication authentication  = SecurityContextHolder.getContext().getAuthentication();
 
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
 
-            return Optional.of((User) authentication.getPrincipal());
+            return userService.findByEmail(authentication.getName());
 
         }
 

@@ -6,47 +6,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="shortcut icon" href="/assets/favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10"
+            integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC"
+            crossorigin="anonymous"></script>
 </head>
 <body>
-    <header th:replace="~{/fragments/header :: header}"></header>
-    <main class="flex flex-col items-center pt-32 p-4 min-h-screen">
-        <div class="flex max-lg:flex-col gap-6 w-full max-w-7xl">
-            <div class="flex-1">
-                <h1 class="text-3xl">Minha Conta</h1>
-                <div class="text-xl mt-4">Dados Pessoais</div>
-                <div class="flex flex-col divide-y shadow-sm divide-slate-300 mt-4 bg-slate-50 border border-slate-300 rounded-lg max-w-lg">
-                    <a class="flex px-3 py-2 gap-6 justify-between">
-                        <div>Nome</div>
-                        <div th:text="|${user.name} ${user.surname}|"></div>
-                    </a>
-                    <a class="flex px-3 py-2 gap-6 justify-between">
-                        <div>E-mail</div>
-                        <div th:text="${user.email}"></div>
-                    </a>
-                </div>
-
+<header th:replace="~{/fragments/header :: header}"></header>
+<main class="flex flex-col items-center pt-32 p-4 min-h-screen">
+    <div class="flex max-lg:flex-col gap-6 w-full max-w-7xl">
+        <div class="flex-1">
+            <h1 class="text-3xl font-semibold">Minha Conta</h1>
+            <div class="text-xl mt-8 font-light">Dados Pessoais</div>
+            <div class="flex flex-col divide-y shadow-sm divide-slate-300 mt-2 bg-slate-50 border border-slate-300 rounded-lg max-w-lg">
+                <a class="flex px-3 py-2 gap-6 justify-between">
+                    <div>Nome</div>
+                    <div th:text="|${user.name} ${user.surname}|"></div>
+                </a>
+                <a class="flex px-3 py-2 gap-6 justify-between">
+                    <div>E-mail</div>
+                    <div th:text="${user.email}"></div>
+                </a>
+                <a class="flex px-3 py-2 gap-6 justify-between">
+                    <div>Produtos</div>
+                    <div th:text="${#lists.size(user.products)}"></div>
+                </a>
             </div>
-            <div class="flex flex-col items-center flex-1">
-                <div class="border w-full max-w-md border-slate-300 bg-slate-50 shadow-sm rounded-lg flex flex-col items-center p-6 gap-4">
-                    <img
-                            class="aspect-square h-48 aspect-square object-cover rounded-full border border-slate-300"
-                            th:src="|/public/${#authentication.name}.png|" alt="">
-                    <form class="flex flex-col items-center gap-4" enctype="multipart/form-data"
-                          action="/add/update-photo"
-                          method="post">
-                        <label>
-                            Imagem:
-                            <input class="w-full" name="photo" type="file" required>
-                        </label>
-
-                        <button class="flex w-full justify-center rounded bg-blue-900 px-3 py-1.5 text-sm font-semibold leading-6  border-b-4 border-blue-700 hover:border-blue-500 text-white shadow-sm transition-all  duration-150 hover:bg-blue-800 transform active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">
-                            Atualizar foto
-                        </button>
-                    </form>
+            <div class="text-xl mt-6 font-light">Meus produtos cadastrados</div>
+            <div class="flex flex-col divide-y shadow-sm divide-slate-300 mt-2 bg-slate-50 border border-slate-300 rounded-lg max-w-lg">
+                <div class="flex px-3 py-2 gap-6 justify-between items-center hover:bg-slate-200 transition-all"
+                     th:each="product : ${user.products}">
+                    <a th:href="|/products/${product.id}|"
+                       class="text-lg font-light"
+                       th:text="${product.name}"></a>
+                    <button class="bg-rose-500 hover:bg-rose-600 border font-semibold border-rose-700 text-white p-1.5 rounded-lg transition-all"
+                            th:hx-delete="|/products/${product.id}|"
+                            th:hx-confirm="|Você tem certeza que deseja remover ${product.name}?|"
+                            hx-boost="true"
+                            hx-swap="outerHTML">
+                        <img class="size-6" src="/assets/trash.svg" alt="trash icon">
+                    </button>
                 </div>
             </div>
         </div>
-    </main>
-    <footer th:replace="~{fragments/footer :: footer}"></footer>
+        <div class="flex flex-col items-center flex-1">
+            <div class="border w-full max-w-md border-slate-300 bg-slate-50 shadow-sm rounded-lg flex flex-col items-center p-6 gap-4">
+                <img
+                        class="aspect-square h-48 aspect-square object-cover rounded-full border border-slate-300"
+                        th:src="|/public/${#authentication.name}.png|" alt="">
+                <form class="flex flex-col items-center gap-4" enctype="multipart/form-data"
+                      action="/add/update-photo"
+                      method="post">
+                    <label>
+                        Imagem:
+                        <input class="w-full" name="photo" type="file" required>
+                    </label>
+
+                    <button class="flex w-full justify-center rounded bg-blue-900 px-3 py-1.5 text-sm font-semibold leading-6  border-b-4 border-blue-700 hover:border-blue-500 text-white shadow-sm transition-all  duration-150 hover:bg-blue-800 transform active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">
+                        Atualizar foto
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
 </body>
 </html>

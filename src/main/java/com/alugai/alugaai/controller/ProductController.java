@@ -9,11 +9,13 @@ import com.alugai.alugaai.security.SecurityService;
 import com.alugai.alugaai.storage.StorageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @Controller
@@ -109,6 +111,7 @@ public class ProductController {
     }
 
     @PostMapping("/add/product")
+    @ResponseBody
     public String addProduct(
             @ModelAttribute("product") Product product,
             @RequestPart("product-photo") MultipartFile productImage
@@ -130,5 +133,35 @@ public class ProductController {
         return "redirect:/products";
 
     }
+
+    @DeleteMapping(value = "/products/{id}", produces = MediaType.TEXT_HTML_VALUE)
+    @ResponseBody
+    public String deleteProduct(@PathVariable Long id) {
+
+        var optionalUser = securityService.getSessionUser();
+
+        if (optionalUser.isEmpty()) {
+            return "Erro ao remover o item";
+        }
+
+        var optionalProduct = productRepository.findById(id);
+
+        if (optionalProduct.isEmpty()) {
+            return "Erro ao remover o item";
+        }
+
+        if (
+                Objects.equals(
+                        optionalProduct.get().getOwner().getEmail(),
+                        optionalUser.get().getEmail()
+                )
+        ) {
+            productRepository.deleteById(id);
+        }
+
+        return "Item removido com sucesso";
+
+    }
+
 
 }

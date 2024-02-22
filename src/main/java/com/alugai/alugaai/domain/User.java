@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 @Data
 @Entity
@@ -33,8 +32,8 @@ public class User implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
 
-    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
-    private Collection<Product> products;
+    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
+    private List<Product> products;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
