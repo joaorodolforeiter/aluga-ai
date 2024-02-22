@@ -42,7 +42,8 @@
                             th:hx-delete="|/products/${product.id}|"
                             th:hx-confirm="|Você tem certeza que deseja remover ${product.name}?|"
                             hx-boost="true"
-                            hx-swap="outerHTML">
+                            hx-target="closest div"
+                            hx-swap="innerHTML">
                         <img class="size-6" src="/assets/trash.svg" alt="trash icon">
                     </button>
                 </div>
