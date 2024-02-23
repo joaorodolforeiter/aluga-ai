@@ -74,4 +74,49 @@ public class RentController {
 
     }
 
+    @GetMapping("/rents/pending")
+    public String getPendingRentPage(Model model) {
+
+        var optionalLoggedUser = securityService.getSessionUser();
+
+        if (optionalLoggedUser.isEmpty()) {
+            return "redirect:/";
+        }
+
+        var rents = rentRepository.findByProductOwner(optionalLoggedUser.get());
+
+        model.addAttribute("rents", rents);
+
+        return "pending-rents";
+
+    }
+
+    @PostMapping("/rents/pending/accept/{id}")
+    public String acceptRent(@PathVariable Long id) {
+
+        var optionalLoggedUser = securityService.getSessionUser();
+
+        if (optionalLoggedUser.isEmpty()) {
+            return "redirect:/";
+        }
+
+        var optionalRent = rentRepository.findById(id);
+
+        if (optionalRent.isEmpty()) {
+            return "redirect:/";
+        }
+
+        if (
+                optionalRent.get().getProduct().getOwner().getEmail().equals(
+                        optionalLoggedUser.get().getEmail()
+                )
+        ) {
+            optionalRent.get().setApproved(true);
+            rentRepository.save(optionalRent.get());
+        }
+
+        return "redirect:/rents/pending";
+
+    }
+
 }

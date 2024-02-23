@@ -10,4 +10,6 @@ public interface RentRepository extends JpaRepository<Rent, Long> {
 
     List<Rent> findByRenter(User renter);
 
+    List<Rent> findByProductOwner(User renter);
+
 }

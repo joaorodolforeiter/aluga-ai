@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Meus itens</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/assets/favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="overflow-y-scroll">
+<header th:replace="~{fragments/header :: header}"></header>
+<main class="flex flex-col items-center pt-28 p-4 min-h-screen text-gray-800">
+
+    <div th:if="${#lists.isEmpty(rents)}"
+         class="flex flex-col items-center opacity-60">
+        <img class="w-32" src="/assets/smiley-sad-thin.svg" alt="smiley sad">
+        <div>
+            Sem produtos alugados
+        </div>
+    </div>
+
+    <div class="max-w-xl w-full flex flex-col">
+        <div
+                class="p-3 border border-slate-300 rounded-lg w-full shadow-sm space-y-4 bg-slate-50"
+                th:each="rent : ${rents}">
+            <div class="flex gap-2 items-center">
+                <img
+                        class="w-8 aspect-square object-cover rounded-full"
+                        th:src="|/public/${rent.renter.email}.png|" alt="">
+                <div>
+                    <span th:text="${rent.renter.name}"></span>
+                    <span class="font-light">
+                              deseja alugar seu produto
+                        </span>
+                </div>
+            </div>
+            <div class="flex justify-between items-center flex-wrap">
+                <a th:href="|/products/${rent.product.id}|"
+                   class="text-xl font-semibold hover:text-blue-600 transition-all"
+                   th:text="${rent.product.name}"></a>
+                <div>
+                    <span class="font-light">de</span>
+                    <span class="font-medium" th:text="${rent.startDate}"></span>
+                    <span class="font-light">até</span>
+                    <span class="font-medium" th:text="${rent.endDate}"></span>
+                </div>
+            </div>
+
+            <form th:if="${!rent.approved}"
+                  th:action="|/rents/pending/accept/${rent.id}|"
+                  method="post">
+                <button class="rounded w-full bg-blue-900 px-4 py-2 text-sm font-semibold border-b-4 border-blue-700 hover:border-blue-500 text-white shadow-sm transition-all duration-150 hover:bg-blue-800 transform active:scale-95">
+                    Aceitar
+                </button>
+            </form>
+            <div th:if="${!rent.approved}"
+                 class="font-light text-slate-800 text-sm text-center"
+                 th:text="|Ao aceitar, ${rent.renter.name} terá acesso a sua localização e contato|"></div>
+
+            <div th:if="${rent.approved}"
+                 class="font-light text-slate-800 text-lg text-center">
+                Aluguel aceito
+            </div>
+        </div>
+    </div>
+</main>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>
