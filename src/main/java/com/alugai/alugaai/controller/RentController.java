@@ -1,8 +1,7 @@
 package com.alugai.alugaai.controller;
 
-import com.alugai.alugaai.domain.Product;
-import com.alugai.alugaai.domain.Rent;
-import com.alugai.alugaai.domain.User;
+import com.alugai.alugaai.model.Product;
+import com.alugai.alugaai.model.Rent;
 import com.alugai.alugaai.repository.ProductRepository;
 import com.alugai.alugaai.repository.RentRepository;
 import com.alugai.alugaai.security.SecurityService;
@@ -13,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.Objects;
 
 @Controller
 @RequiredArgsConstructor
@@ -29,11 +30,7 @@ public class RentController {
             return "redirect:/";
         }
 
-        var optionalLoggedUser = securityService.getSessionUser();
-
-        if (optionalLoggedUser.isEmpty()) {
-            return "redirect:/";
-        }
+        var loggedUser = securityService.getSessionUser();
 
         var optionalProduct = productRepository.findById(productId);
 
@@ -41,14 +38,13 @@ public class RentController {
             return "redirect:/";
         }
 
-        User user = optionalLoggedUser.get();
         Product product = optionalProduct.get();
 
-        if (product.getOwner().equals(user)) {
+        if (Objects.equals(product.getOwner(), loggedUser)) {
             return "redirect:/account";
         }
 
-        rent.setRenter(user);
+        rent.setRenter(loggedUser);
         rent.setProduct(product);
 
         rentRepository.save(rent);
@@ -60,13 +56,9 @@ public class RentController {
     @GetMapping("/rents")
     public String getRentPage(Model model) {
 
-        var optionalLoggedUser = securityService.getSessionUser();
+        var loggedUser = securityService.getSessionUser();
 
-        if (optionalLoggedUser.isEmpty()) {
-            return "redirect:/";
-        }
-
-        var rents = rentRepository.findByRenter(optionalLoggedUser.get());
+        var rents = rentRepository.findByRenter(loggedUser);
 
         model.addAttribute("rents", rents);
 
@@ -77,13 +69,8 @@ public class RentController {
     @GetMapping("/rents/pending")
     public String getPendingRentPage(Model model) {
 
-        var optionalLoggedUser = securityService.getSessionUser();
-
-        if (optionalLoggedUser.isEmpty()) {
-            return "redirect:/";
-        }
-
-        var rents = rentRepository.findByProductOwner(optionalLoggedUser.get());
+        var loggedUser = securityService.getSessionUser();
+        var rents = rentRepository.findByProductOwner(loggedUser);
 
         model.addAttribute("rents", rents);
 
@@ -94,11 +81,7 @@ public class RentController {
     @PostMapping("/rents/pending/accept/{id}")
     public String acceptRent(@PathVariable Long id) {
 
-        var optionalLoggedUser = securityService.getSessionUser();
-
-        if (optionalLoggedUser.isEmpty()) {
-            return "redirect:/";
-        }
+        var loggedUser = securityService.getSessionUser();
 
         var optionalRent = rentRepository.findById(id);
 
@@ -108,7 +91,7 @@ public class RentController {
 
         if (
                 optionalRent.get().getProduct().getOwner().getEmail().equals(
-                        optionalLoggedUser.get().getEmail()
+                        loggedUser.getEmail()
                 )
         ) {
             optionalRent.get().setApproved(true);

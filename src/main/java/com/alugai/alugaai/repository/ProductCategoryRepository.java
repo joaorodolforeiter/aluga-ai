@@ -1,6 +1,6 @@
 package com.alugai.alugaai.repository;
 
-import com.alugai.alugaai.domain.ProductCategory;
+import com.alugai.alugaai.model.ProductCategory;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

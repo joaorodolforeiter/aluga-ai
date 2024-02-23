@@ -1,7 +1,7 @@
 package com.alugai.alugaai.repository;
 
-import com.alugai.alugaai.domain.Rent;
-import com.alugai.alugaai.domain.User;
+import com.alugai.alugaai.model.Rent;
+import com.alugai.alugaai.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.alugai.alugaai.repository;
 
-import com.alugai.alugaai.domain.Product;
+import com.alugai.alugaai.model.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

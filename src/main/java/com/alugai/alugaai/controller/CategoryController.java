@@ -1,6 +1,6 @@
 package com.alugai.alugaai.controller;
 
-import com.alugai.alugaai.domain.ProductCategory;
+import com.alugai.alugaai.model.ProductCategory;
 import com.alugai.alugaai.repository.ProductCategoryRepository;
 import com.alugai.alugaai.storage.StorageService;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,6 @@
 package com.alugai.alugaai.controller;
 
-import com.alugai.alugaai.domain.User;
+import com.alugai.alugaai.model.User;
 import com.alugai.alugaai.dto.UserRegistrationDto;
 import com.alugai.alugaai.service.UserService;
 import jakarta.validation.Valid;
@@ -41,7 +41,7 @@ public class AuthController {
             return "redirect:/register?fail";
         }
 
-        userService.saveUser(user);
+        userService.register(user);
 
         return "redirect:/login";
 

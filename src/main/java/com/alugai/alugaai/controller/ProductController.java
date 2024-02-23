@@ -1,8 +1,8 @@
 package com.alugai.alugaai.controller;
 
-import com.alugai.alugaai.domain.Product;
-import com.alugai.alugaai.domain.Rent;
-import com.alugai.alugaai.domain.User;
+import com.alugai.alugaai.model.Product;
+import com.alugai.alugaai.model.Rent;
+import com.alugai.alugaai.model.User;
 import com.alugai.alugaai.repository.ProductCategoryRepository;
 import com.alugai.alugaai.repository.ProductRepository;
 import com.alugai.alugaai.security.SecurityService;
@@ -116,18 +116,14 @@ public class ProductController {
             @RequestPart("product-photo") MultipartFile productImage
     ) {
 
-        Optional<User> optionalLoggedUser = securityService.getSessionUser();
+        User loggedUser = securityService.getSessionUser();
+        product.setOwner(loggedUser);
 
-        if (optionalLoggedUser.isPresent()) {
+        storageService.store(productImage);
+        product.setPhotoPath(productImage.getOriginalFilename());
 
-            product.setOwner(optionalLoggedUser.get());
+        productRepository.save(product);
 
-            storageService.store(productImage);
-            product.setPhotoPath(productImage.getOriginalFilename());
-
-            productRepository.save(product);
-
-        }
 
         return "redirect:/products";
 
@@ -137,11 +133,7 @@ public class ProductController {
     @ResponseBody
     public String deleteProduct(@PathVariable Long id) {
 
-        var optionalUser = securityService.getSessionUser();
-
-        if (optionalUser.isEmpty()) {
-            return "Erro ao remover o item";
-        }
+        var loggedUser = securityService.getSessionUser();
 
         var optionalProduct = productRepository.findById(id);
 
@@ -152,7 +144,7 @@ public class ProductController {
         if (
                 Objects.equals(
                         optionalProduct.get().getOwner().getEmail(),
-                        optionalUser.get().getEmail()
+                        loggedUser.getEmail()
                 )
         ) {
             productRepository.deleteById(id);

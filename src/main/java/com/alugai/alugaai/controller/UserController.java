@@ -1,6 +1,5 @@
 package com.alugai.alugaai.controller;
 
-import com.alugai.alugaai.domain.User;
 import com.alugai.alugaai.security.SecurityService;
 import com.alugai.alugaai.service.UserService;
 import com.alugai.alugaai.storage.StorageService;
@@ -16,8 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Optional;
-
 @Controller
 @RequiredArgsConstructor
 public class UserController {
@@ -29,13 +26,8 @@ public class UserController {
     @GetMapping("/account")
     public String getAccountPage(Model model) {
 
-        Optional<User> optionalLoggedUser = securityService.getSessionUser();
-
-        if (optionalLoggedUser.isEmpty()) {
-            return "redirect:/login";
-        }
-
-        optionalLoggedUser.ifPresent(user -> model.addAttribute("user", user));
+        var loggedUser = securityService.getSessionUser();
+        model.addAttribute("user", loggedUser);
 
         return "account";
 
@@ -67,18 +59,10 @@ public class UserController {
     @PostMapping("/add/update-photo")
     public String addProfilePhoto(@RequestPart("photo") MultipartFile photo) {
 
-        Optional<User> optionalLoggedUser = securityService.getSessionUser();
-
-        if (optionalLoggedUser.isEmpty()) {
-            return "redirect:/login";
-        }
+        var loggedUser = securityService.getSessionUser();
 
         storageService.store(photo);
-
-        User user = optionalLoggedUser.get();
-        user.setPhotoPath(photo.getOriginalFilename());
-
-        userService.updateUser(user);
+        userService.save(loggedUser);
 
         return "redirect:/account";
 
