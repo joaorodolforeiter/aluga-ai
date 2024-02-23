@@ -111,7 +111,6 @@ public class ProductController {
     }
 
     @PostMapping("/add/product")
-    @ResponseBody
     public String addProduct(
             @ModelAttribute("product") Product product,
             @RequestPart("product-photo") MultipartFile productImage
