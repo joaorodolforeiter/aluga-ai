@@ -9,7 +9,7 @@ public interface StorageService {
 
     void init();
 
-    void store(MultipartFile file);
+    String store(MultipartFile file);
 
     Path load(String filename);
 

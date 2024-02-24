@@ -1,6 +1,6 @@
 package com.alugai.alugaai.controller;
 
-import com.alugai.alugaai.security.SecurityService;
+import com.alugai.alugaai.security.CurrentUserProvider;
 import com.alugai.alugaai.service.UserService;
 import com.alugai.alugaai.storage.StorageService;
 import lombok.RequiredArgsConstructor;
@@ -19,14 +19,14 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final SecurityService securityService;
+    private final CurrentUserProvider currentUserProvider;
     private final StorageService storageService;
     private final UserService userService;
 
     @GetMapping("/account")
     public String getAccountPage(Model model) {
 
-        var loggedUser = securityService.getSessionUser();
+        var loggedUser = currentUserProvider.getSessionUser();
         model.addAttribute("user", loggedUser);
 
         return "account";
@@ -59,11 +59,7 @@ public class UserController {
     @PostMapping("/add/update-photo")
     public String addProfilePhoto(@RequestPart("photo") MultipartFile photo) {
 
-        var loggedUser = securityService.getSessionUser();
-
-        storageService.store(photo);
-        userService.save(loggedUser);
-
+        userService.updateProfilePhoto(photo);
         return "redirect:/account";
 
     }

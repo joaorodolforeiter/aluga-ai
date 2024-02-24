@@ -1,6 +1,5 @@
 package com.alugai.alugaai.controller;
 
-import com.alugai.alugaai.model.User;
 import com.alugai.alugaai.dto.UserRegistrationDto;
 import com.alugai.alugaai.service.UserService;
 import jakarta.validation.Valid;
@@ -10,8 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -35,13 +32,11 @@ public class AuthController {
             @Valid @ModelAttribute("user") UserRegistrationDto user
     ) {
 
-        Optional<User> existingUserEmail = userService.findByEmail(user.getEmail());
+        var createdUser = userService.register(user);
 
-        if (existingUserEmail.isPresent()) {
+        if (createdUser.isEmpty()) {
             return "redirect:/register?fail";
         }
-
-        userService.register(user);
 
         return "redirect:/login";
 

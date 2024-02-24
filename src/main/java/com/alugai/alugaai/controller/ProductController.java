@@ -1,19 +1,17 @@
 package com.alugai.alugaai.controller;
 
+import com.alugai.alugaai.dto.ProductRegistrationDto;
+import com.alugai.alugaai.dto.RentRegistrationDto;
 import com.alugai.alugaai.model.Product;
-import com.alugai.alugaai.model.Rent;
-import com.alugai.alugaai.model.User;
-import com.alugai.alugaai.repository.ProductCategoryRepository;
-import com.alugai.alugaai.repository.ProductRepository;
-import com.alugai.alugaai.security.SecurityService;
-import com.alugai.alugaai.storage.StorageService;
+import com.alugai.alugaai.security.CurrentUserProvider;
+import com.alugai.alugaai.service.CategoryService;
+import com.alugai.alugaai.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -23,10 +21,9 @@ import java.util.Optional;
 @RequestMapping("/")
 public class ProductController {
 
-    private final ProductRepository productRepository;
-    private final ProductCategoryRepository categoryRepository;
-    private final SecurityService securityService;
-    private final StorageService storageService;
+    private final ProductService productService;
+    private final CategoryService categoryService;
+    private final CurrentUserProvider currentUserProvider;
 
     @GetMapping({"/products", ""})
     public String getProductsPage(
@@ -36,10 +33,12 @@ public class ProductController {
             Model model
     ) {
 
-        model.addAttribute("categories", categoryRepository.findAll());
-        model.addAttribute("query", query);
-        model.addAttribute("page", page);
-        model.addAttribute("selectedCategory", categoryName);
+        model
+                .addAttribute("categories", categoryService.findAll())
+                .addAttribute("query", query)
+                .addAttribute("page", page)
+                .addAttribute("selectedCategory", categoryName);
+
 
         return "products";
 
@@ -53,14 +52,15 @@ public class ProductController {
             Model model
     ) {
 
-        model.addAttribute("category", optionalCategoryName);
-        model.addAttribute("page", page);
-        model.addAttribute("query", optionalQuery);
+        model
+                .addAttribute("category", optionalCategoryName)
+                .addAttribute("page", page)
+                .addAttribute("query", optionalQuery);
 
         if (!optionalQuery.isEmpty()) {
             model.addAttribute(
                     "products",
-                    productRepository.findByNameContaining(
+                    productService.findByNameContaining(
                             optionalQuery,
                             Pageable.ofSize(30).withPage(page - 1)
                     )
@@ -70,7 +70,7 @@ public class ProductController {
 
         if (!optionalCategoryName.isEmpty()) {
             model.addAttribute("products",
-                    productRepository.findByCategoryName(
+                    productService.findByCategoryName(
                             optionalCategoryName,
                             Pageable.ofSize(30).withPage(page - 1)
                     )
@@ -79,7 +79,7 @@ public class ProductController {
         }
 
         model.addAttribute("products",
-                productRepository.findAll(
+                productService.findAll(
                         Pageable.ofSize(30).withPage(page - 1)
                 )
         );
@@ -91,40 +91,34 @@ public class ProductController {
     @GetMapping("/products/{id}")
     public String getProductPage(Model model, @PathVariable("id") Long id) {
 
-        Optional<Product> optionalProduct = productRepository.findById(id);
+        Optional<Product> optionalProduct = productService.findById(id);
 
         if (optionalProduct.isEmpty()) {
             return "redirect:/products";
         }
 
         model.addAttribute("product", optionalProduct.get());
-        model.addAttribute("rent", new Rent());
+        model.addAttribute("rent", new RentRegistrationDto());
+
         return "product";
 
     }
 
     @GetMapping("/add/product")
     public String addProductPage(Model model) {
-        model.addAttribute("categories", categoryRepository.findAll());
-        model.addAttribute("product", new Product());
+
+        model.addAttribute("categories", categoryService.findAll());
+        model.addAttribute("product", new ProductRegistrationDto());
         return "add-product";
+
     }
 
     @PostMapping("/add/product")
     public String addProduct(
-            @ModelAttribute("product") Product product,
-            @RequestPart("product-photo") MultipartFile productImage
+            @ModelAttribute("product") ProductRegistrationDto productRegistrationDto
     ) {
 
-        User loggedUser = securityService.getSessionUser();
-        product.setOwner(loggedUser);
-
-        storageService.store(productImage);
-        product.setPhotoPath(productImage.getOriginalFilename());
-
-        productRepository.save(product);
-
-
+        productService.create(productRegistrationDto);
         return "redirect:/products";
 
     }
@@ -133,13 +127,13 @@ public class ProductController {
     @ResponseBody
     public String deleteProduct(@PathVariable Long id) {
 
-        var loggedUser = securityService.getSessionUser();
-
-        var optionalProduct = productRepository.findById(id);
+        var optionalProduct = productService.findById(id);
 
         if (optionalProduct.isEmpty()) {
             return "Erro ao remover o item";
         }
+
+        var loggedUser = currentUserProvider.getSessionUser();
 
         if (
                 Objects.equals(
@@ -147,7 +141,7 @@ public class ProductController {
                         loggedUser.getEmail()
                 )
         ) {
-            productRepository.deleteById(id);
+            productService.deleteById(id);
         }
 
         return "Item removido com sucesso";

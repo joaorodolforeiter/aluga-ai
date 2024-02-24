@@ -1,17 +1,24 @@
 package com.alugai.alugaai.dto;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class UserRegistrationDto {
 
     @NotEmpty
     private String name;
+
     @NotEmpty
     private String surname;
+
     @NotEmpty
+    @Email
     private String email;
+
     @NotEmpty
     private String password;
 

@@ -8,6 +8,7 @@ import java.util.Collection;
 @Entity
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Product {
@@ -29,7 +30,7 @@ public class Product {
     private User owner;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    private ProductCategory category;
+    private Category category;
 
     @OneToMany(mappedBy = "product")
     private Collection<Rent> rents;

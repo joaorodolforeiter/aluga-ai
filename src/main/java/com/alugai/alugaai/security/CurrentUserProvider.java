@@ -1,7 +1,7 @@
 package com.alugai.alugaai.security;
 
 import com.alugai.alugaai.model.User;
-import com.alugai.alugaai.service.UserService;
+import com.alugai.alugaai.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class SecurityService {
+public class CurrentUserProvider {
 
-    private final UserService userService;
+    private final UserRepository userRepository;
 
     public User getSessionUser() {
 
@@ -22,7 +22,7 @@ public class SecurityService {
             throw new RuntimeException("User not logged in");
         }
 
-        return userService.findByEmail(authentication.getName()).get();
+        return userRepository.findByEmail(authentication.getName()).get();
 
     }
 

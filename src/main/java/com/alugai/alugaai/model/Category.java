@@ -8,9 +8,10 @@ import java.util.Collection;
 @Entity
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductCategory {
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +19,7 @@ public class ProductCategory {
 
     private String name;
 
-    public String imagePath;
+    private String imagePath;
 
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     private Collection<Product> products;
