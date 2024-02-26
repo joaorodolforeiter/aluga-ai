@@ -35,6 +35,8 @@ public class ProductService {
                 .price(productDto.getPrice())
                 .owner(loggedUser)
                 .category(productDto.getCategory())
+                .state(productDto.getState())
+                .city(productDto.getCity())
                 .photoPath(fileId)
                 .build();
 

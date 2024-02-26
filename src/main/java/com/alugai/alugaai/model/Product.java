@@ -26,6 +26,10 @@ public class Product {
 
     private Integer price;
 
+    private String city;
+
+    private String state;
+
     @ManyToOne(fetch = FetchType.EAGER)
     private User owner;
 

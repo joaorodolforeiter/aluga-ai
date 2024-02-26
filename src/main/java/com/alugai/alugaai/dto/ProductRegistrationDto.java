@@ -23,6 +23,12 @@ public class ProductRegistrationDto {
     @NotEmpty
     private Category category;
 
+    @NotEmpty
+    private String city;
+
+    @NotEmpty
+    private String state;
+
     private MultipartFile photo;
 
 }
