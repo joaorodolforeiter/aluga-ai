@@ -8,50 +8,59 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="overflow-y-scroll">
-    <header th:replace="~{fragments/header :: header}"></header>
-    <main class="flex flex-col items-center pt-28 p-4 min-h-screen">
+<header th:replace="~{fragments/header :: header}"></header>
+<main class="flex flex-col items-center pt-28 p-4 min-h-screen">
 
-        <div th:if="${#lists.isEmpty(rents)}"
-                class="flex flex-col items-center opacity-60">
-            <img class="w-32" src="/assets/smiley-sad-thin.svg" alt="smiley sad">
-            <div>
-                Sem produtos alugados
-            </div>
+    <div th:if="${#lists.isEmpty(rents)}"
+         class="flex flex-col items-center opacity-60">
+        <img class="w-32" src="/assets/smiley-sad-thin.svg" alt="smiley sad">
+        <div>
+            Sem produtos alugados
         </div>
+    </div>
 
-        <div class="max-w-xl w-full flex flex-col gap-3">
-            <div
-                    th:class="|p-3 border border-slate-300 rounded-lg w-full shadow-sm space-y-3 ${rent.isApproved() ? 'bg-green-50' : 'bg-red-50'}|"
-                    th:each="rent : ${rents}">
+    <div class="max-w-xl w-full flex flex-col gap-4">
+        <div
+                th:class="|p-3 border border-slate-300 rounded-lg w-full shadow-sm space-y-3 ${rent.approved ? 'bg-green-50/25' : 'bg-rose-50/25'}|"
+                th:each="rent : ${rents}">
 
-                <div class="flex justify-between items-center flex-wrap">
-                    <div class="text-xl" th:text="${rent.product.name}"></div>
-                    <div>
-                        <span class="font-light">de</span>
-                        <span class="font-medium" th:text="${rent.startDate}"></span>
-                        <span class="font-light">até</span>
-                        <span class="font-medium" th:text="${rent.endDate}"></span>
-                    </div>
-                </div>
-                <div class="flex gap-2 items-center justify-between">
-                    <div class="flex gap-2 items-center">
-                        <img
-                                class="w-8 aspect-square object-cover rounded-full"
-                                th:src="|/public/${rent.product.owner.getEmail()}.png|" alt="">
-                        <div>
-                            <span th:text="${rent.product.owner.name}"></span>
-                            <span class="font-light"
-                                  th:text="${rent.isApproved() ? 'aprovou seu pedido' : 'ainda não aprovou seu pedido'}"></span>
-                        </div>
-                    </div>
-                    <div>
-                        <div th:if="${rent.isApproved()}">APROVADO</div>
-                        <div th:if="${!rent.isApproved()}">PENDENTE</div>
-                    </div>
+            <div class="flex justify-between items-center flex-wrap">
+                <div class="text-xl" th:text="${rent.product.name}"></div>
+                <div>
+                    <span class="font-light">de</span>
+                    <span class="font-medium" th:text="${rent.startDate}"></span>
+                    <span class="font-light">até</span>
+                    <span class="font-medium" th:text="${rent.endDate}"></span>
                 </div>
             </div>
+            <div class="flex gap-2 items-center justify-between">
+                <div class="flex gap-2 items-center">
+                    <img
+                            class="w-8 aspect-square object-cover rounded-full"
+                            th:src="|/public/${rent.product.owner.getEmail()}.png|" alt="">
+                    <div th:text="|Item de ${rent.product.owner.name}|"></div>
+                </div>
+                <div>
+                    <div th:if="${rent.isApproved()}">APROVADO</div>
+                    <div th:if="${!rent.isApproved()}">PENDENTE</div>
+                </div>
+            </div>
+            <div th:unless="${rent.approved}" class="flex items-center justify-between">
+                <label>Preço: R$<span th:text='${rent.product.price * rent.numberOfDays}'></span></label>
+                <a class="flex justify-center bg-blue-900 hover:bg-blue-800 rounded border-b-4 border-blue-700 px-3 py-1 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-800 transition-all duration-150 transform active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                   th:href="|/rent/payment/${rent.id}|">Pagar</a>
+            </div>
+
+            <div th:if="${rent.approved}">
+                <div class="text-center font-light text-lg my-2">Pagamento realizado</div>
+                <div th:text="|Informações de contato com ${rent.product.owner.name}:|"
+                        class="text-center font-light text-lg my-2"></div>
+                <div class="text-center font-light text-lg my-2"
+                     th:text="|E-mail: ${rent.product.owner.email}|"></div>
+            </div>
         </div>
-    </main>
-    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    </div>
+</main>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
 </body>
 </html>

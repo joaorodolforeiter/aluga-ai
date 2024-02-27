@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 @Entity
 @Getter
@@ -25,6 +26,10 @@ public class Rent {
 
     private LocalDate startDate;
     private LocalDate endDate;
+
+    public Long getNumberOfDays() {
+        return ChronoUnit.DAYS.between(startDate, endDate);
+    }
 
     private boolean approved;
 

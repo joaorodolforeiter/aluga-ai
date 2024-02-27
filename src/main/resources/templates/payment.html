@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+<script th:inline="javascript">
+    const stripe = Stripe('pk_test_51Ong2YCoptbkQfYfcQHOQ9VAz7BQfp0s7dFfNaBBhKh34TZNFTWGywrYDaweGOmtgzXx9YO0BeuzdL9J9r3thJwk00heME0y1r');
+    stripe.redirectToCheckout({
+        sessionId: [[${sessionId}]]
+    })
+</script>
+</body>
+</html>

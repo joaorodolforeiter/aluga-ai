@@ -57,22 +57,20 @@ public class RentService {
 
     public void acceptRent(long id) {
 
-        var loggedUser = currentUserProvider.getSessionUser();
+
         var optionalRent = rentRepository.findById(id);
 
         if (optionalRent.isEmpty()) {
             return;
         }
 
-        if (
-                optionalRent.get().getProduct().getOwner().getEmail().equals(
-                        loggedUser.getEmail()
-                )
-        ) {
-            optionalRent.get().setApproved(true);
-            rentRepository.save(optionalRent.get());
-        }
+        optionalRent.get().setApproved(true);
+        rentRepository.save(optionalRent.get());
 
+    }
+
+    public Optional<Rent> findById(Long id) {
+        return rentRepository.findById(id);
     }
 
     public List<Rent> findByRenter(User user) {
