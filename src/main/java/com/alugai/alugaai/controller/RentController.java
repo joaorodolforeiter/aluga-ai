@@ -103,7 +103,7 @@ public class RentController {
                                                 .setDescription(optionalRent.get().getProduct().getDescription())
                                                 .build())
                                 .setUnitAmount(
-                                        optionalRent.get().getProduct().getPrice().longValue() * optionalRent.get().getNumberOfDays() * 100)
+                                        optionalRent.get().getProduct().getPrice() * optionalRent.get().getNumberOfDays() * 100)
                                 .setCurrency("brl")
                                 .build())
                 .setQuantity(1L)
